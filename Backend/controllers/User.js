@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('../Database/database');
+const db = require('../Database/db.config');
 const userModel = require('../models/User');
 
 const timeLimit = 3 * 24 * 60 * 60 * 1000;
@@ -18,32 +18,29 @@ exports.signUp = async (req, res, next) => {
 
     const {
         pseudo,
-        email,
-        password
+        email
     } = req.body
 
     try {
+        const salt = await bcrypt.genSalt(10);
+        const password = await bcrypt.hash(req.body.password, salt);
         const user = await userModel.create({
             pseudo,
             email,
             password
         });
-        const salt = await bcrypt.genSalt(10);
-        const pwd = await bcrypt.hash(req.body.password, salt);
+        user.save();
         res.status(201).json({
-            user: user._id
+            user: user.id
         });
     } catch (err) {
-        res.status(200).send({
+        res.status(400).send({
             err
         })
     }
-
-
-
 };
 
-exports.signIn = (req, res, next) => {
+exports.signIn = async (req, res, next) => {
 
     const {
         email,
@@ -58,10 +55,10 @@ exports.signIn = (req, res, next) => {
             timeLimit
         })
         res.status(200).json({
-            user: user._id
+            user: user.id
         })
     } catch (err) {
-        res.status(200).json(err)
+        res.status(400).json(err)
 
     }
 }
