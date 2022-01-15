@@ -16,6 +16,7 @@ const createToken = (id) => {
 
 exports.signUp = async (req, res, next) => {
 
+
     const {
         pseudo,
         email
@@ -41,26 +42,35 @@ exports.signUp = async (req, res, next) => {
 };
 
 exports.signIn = async (req, res, next) => {
-
-    const {
-        email,
-        password
-    } = req.body
-
-    try {
-        const user = await userModel.login(email, password);
-        const token = createToken(user._id);
-        res.cookie('jwt', token, {
-            httpOnly: true,
-            timeLimit
+    userModel.findOne({
+            email: req.body.email
         })
-        res.status(200).json({
-            user: user.id
-        })
-    } catch (err) {
-        res.status(400).json(err)
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    error: 'Utilisateur non trouvé !'
+                });
+            }
+            bcrypt.compare(req.body.password, user.password)
+                .then(valid => {
+                    if (!valid) {
+                        return res.status(401).json({
+                            error: 'Mot de passe incorrect !'
+                        });
+                    }
+                    res.status(200).json({
+                        userId: user.id,
+                        token: jwt.sign({
+                            userId: user.id
+                        }, 'SECRET_TOKEN', {
+                            expiresIn: '24h'
+                        })
+                    })
 
-    }
+                })
+
+        })
+
 }
 
 
