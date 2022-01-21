@@ -2,13 +2,12 @@ import axios from 'axios'
 
 
 
-const registery = (email, pseudo, password) => {
+const login = (email, password) => {
 
 
-    axios.post('http/localhost:3000/signup', {
+    axios.post('http/localhost:3000/signin', {
 
         email: email,
-        pseudo: pseudo,
         password: password,
 
     }).then(res => {
@@ -24,5 +23,5 @@ const registery = (email, pseudo, password) => {
 }
 
 export default {
-    registery
+    login
 }
