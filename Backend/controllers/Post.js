@@ -55,7 +55,23 @@ module.exports.updatePost = (req, res) => {
 }
 
 module.exports.deletePost = (req, res) => {
-
+    Post.findOne({
+            id: req.params.id
+        })
+        .then(post => {
+            const filename = post.imageUrl.split('/images/')[1];
+            fs.unlink(`images/${filename}`, () => {
+                Post.deleteOne({
+                        id: req.params.id
+                    })
+                    .then(() => res.status(200).json({
+                        message: 'Objet supprimé !'
+                    }))
+            });
+        })
+        .catch(error => res.status(500).json({
+            message: 'Erreur serveur !'
+        }));
 }
 
 module.exports.likeUnlikePost = (req, res) => {
