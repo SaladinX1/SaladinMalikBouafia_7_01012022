@@ -1,18 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('../Database/db.config');
 const userModel = require('../models/User');
-
 const timeLimit = 3 * 24 * 60 * 60 * 1000;
-
-const createToken = (id) => {
-    return jwt.sign({
-        id
-    }, process.env.SECRET_TOKEN, {
-        expiresIn: timeLimit
-    })
-}
-
 
 exports.signUp = async (req, res, next) => {
 
@@ -30,6 +19,13 @@ exports.signUp = async (req, res, next) => {
             email,
             password
         });
+        if (user.email === req.body.email) {
+
+            return res.status(401).json({
+                message: 'Email déjà inscrit , veuillez inscrire une autre adresse, merci'
+            });
+
+        }
         user.save();
         res.status(201).json({
             user: user.id
