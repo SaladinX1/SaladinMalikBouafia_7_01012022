@@ -15,6 +15,21 @@ module.exports.getAllPosts = (req, res) => {
 
 
 module.exports.createPost = (req, res) => {
+    const ObjPost = JSON.parse(req.body.post);
+
+    const postItem = new Sauce({
+        ...ObjPost,
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        likes: 0,
+        dislikes: 0,
+        usersLiked: [],
+        usersDisliked: []
+    });
+    postItem.save()
+        .then(res.status(201).json({
+            message: 'Post crée !'
+        }))
+
 
 }
 
