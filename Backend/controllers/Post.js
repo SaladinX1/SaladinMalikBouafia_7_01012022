@@ -76,6 +76,102 @@ module.exports.deletePost = (req, res) => {
 
 module.exports.likeUnlikePost = (req, res) => {
 
+    let like = req.body.like
+    let userId = req.body.userId
+    let posterId = req.params.id
+
+    switch (like) {
+        case 1:
+            Post.updateOne({
+                    id: posterId
+                }, {
+                    $push: {
+                        usersLiked: userId
+                    },
+                    $inc: {
+                        likes: +1
+                    }
+                })
+                .then(() => res.status(200).json({
+                    message: `J'aime`
+                }))
+                .catch((error) => res.status(400).json({
+                    error
+                }))
+
+            break;
+
+        case 0:
+            Post.findOne({
+                    id: posterId
+                })
+                .then((post) => {
+                    if (post.usersLiked.includes(userId)) {
+                        Post.updateOne({
+                                id: posterId
+                            }, {
+                                $pull: {
+                                    usersLiked: userId
+                                },
+                                $inc: {
+                                    likes: -1
+                                }
+                            })
+                            .then(() => res.status(200).json({
+                                message: `Neutre`
+                            }))
+                            .catch((error) => res.status(400).json({
+                                error
+                            }))
+                    }
+                    if (post.usersDisliked.includes(userId)) {
+                        Post.updateOne({
+                                id: sauceId
+                            }, {
+                                $pull: {
+                                    usersDisliked: userId
+                                },
+                                $inc: {
+                                    dislikes: -1
+                                }
+                            })
+                            .then(() => res.status(200).json({
+                                message: `Neutre`
+                            }))
+                            .catch((error) => res.status(400).json({
+                                error
+                            }))
+                    }
+                })
+                .catch((error) => res.status(404).json({
+                    error
+                }))
+            break;
+
+        case -1:
+            Post.updateOne({
+                    id: posterId
+                }, {
+                    $push: {
+                        usersDisliked: userId
+                    },
+                    $inc: {
+                        dislikes: +1
+                    }
+                })
+                .then(() => {
+                    res.status(200).json({
+                        message: `Je n'aime pas`
+                    })
+                })
+                .catch((error) => res.status(400).json({
+                    error
+                }))
+            break;
+
+        default:
+            console.log(error);
+    }
 
 
 
