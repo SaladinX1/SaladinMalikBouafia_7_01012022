@@ -1,7 +1,8 @@
 const Post = require('../models/Post');
-const User = require('../models/User');
-const Comment = require('../models/Comment');
 const fs = require('fs');
+const {
+    param
+} = require('../routes/Post');
 
 
 module.exports.getAllPosts = (req, res) => {
@@ -18,7 +19,7 @@ module.exports.createPost = (req, res) => {
 
     const postItem = new Post({
 
-        // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        //picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
         message: req.body.message
 
 
@@ -32,45 +33,40 @@ module.exports.createPost = (req, res) => {
 
 
 module.exports.updatePost = (req, res) => {
-    const ObjPost = req.file ? {
-        ...JSON.parse(req.body.post),
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : {
-        ...req.body
-    };
-    Post.updateOne({
-            id: req.params.id
+
+
+    Post.update({
+            message: req.body.message
         }, {
-            ...ObjPost,
-            id: req.params.id
+            where: {
+                id: req.params.id
+            }
         })
         .then(() => res.status(200).json({
             message: 'Post modifié !'
         }))
         .catch(error => res.status(400).json({
-            message: 'Muvaise requête !'
+            message: 'Mauvaise requête !'
         }));
 }
 
+
+
 module.exports.deletePost = (req, res) => {
-    Post.findOne({
-            id: req.params.id
+    Post.destroy({
+            where: {
+                id: req.params.id
+            }
         })
-        .then(post => {
-            const filename = post.imageUrl.split('/images/')[1];
-            fs.unlink(`images/${filename}`, () => {
-                Post.deleteOne({
-                        id: req.params.id
-                    })
-                    .then(() => res.status(200).json({
-                        message: 'Objet supprimé !'
-                    }))
-            });
-        })
-        .catch(error => res.status(500).json({
-            message: 'Erreur serveur !'
+        .then(() => res.status(200).json({
+            message: 'Objet supprimé !'
+        }))
+        .catch(error => res.status(400).json({
+            message: 'Mauvaise requête !'
         }));
 }
+
+
 
 module.exports.likeUnlikePost = (req, res) => {
 
