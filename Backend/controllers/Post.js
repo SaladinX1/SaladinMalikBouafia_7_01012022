@@ -18,17 +18,23 @@ module.exports.getAllPosts = (req, res) => {
 module.exports.createPost = (req, res) => {
 
     const postItem = new Post({
-
         //picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
         message: req.body.message
-
-
     });
     postItem.save()
         .then(res.status(201).json({
             message: 'Post crée !'
         }))
 }
+
+// module.exports.getOnePost = (req, res) => {
+//     Post.findOne({
+//             where: {
+//                 id: req.params.id
+//             }
+//         }).then(post => res.status(200).json(post))
+//         .catch(error => res.status(500).json(error))
+// }
 
 
 
@@ -70,7 +76,7 @@ module.exports.deletePost = (req, res) => {
 
 module.exports.likeUnlikePost = (req, res) => {
 
-    let like = req.body.like
+    // let like = req.body.like
     let userId = req.body.userId
     let posterId = req.params.id
 
@@ -168,21 +174,5 @@ module.exports.likeUnlikePost = (req, res) => {
     }
 
 
-
-}
-
-
-
-//module comments
-
-module.exports.commentPost = (req, res) => {
-
-}
-
-module.exports.editCommentPost = (req, res) => {
-
-}
-
-module.exports.deleteCommentPost = (req, res) => {
 
 }
