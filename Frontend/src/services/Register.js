@@ -2,26 +2,23 @@ import axios from 'axios'
 
 
 
-const registery = (email, pseudo, password) => {
+const http = axios.create({
+    timeout: 5000,
+    headers: {
+        "Content-Type": "application/json",
+    }
+});
 
+const registery = (user) =>
 
-    axios.post('http/localhost:3000/signup', {
+    http.post('http://localhost:3000/auth/signup', {
 
-        email: email,
-        pseudo: pseudo,
-        password: password,
+        email: user.email,
+        pseudo: user.pseudo,
+        password: user.password
 
-    }).then(res => {
+    })
 
-        return res.json()
-
-    }).catch((err) => {
-        alert(" une erreur est survenue :( : " + err);
-    });
-
-    return Promise.resolve('Opération en cours');
-
-}
 
 export default {
     registery
