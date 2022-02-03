@@ -27,19 +27,18 @@ module.exports.createPost = (req, res) => {
         }))
 }
 
-// module.exports.getOnePost = (req, res) => {
-//     Post.findOne({
-//             where: {
-//                 id: req.params.id
-//             }
-//         }).then(post => res.status(200).json(post))
-//         .catch(error => res.status(500).json(error))
-// }
+module.exports.getOnePost = (req, res) => {
+    Post.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).then(post => res.status(200).json(post))
+        .catch(error => res.status(500).json(error))
+}
 
 
 
 module.exports.updatePost = (req, res) => {
-
 
     Post.update({
             message: req.body.message
