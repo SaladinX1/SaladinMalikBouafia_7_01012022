@@ -1,20 +1,22 @@
 const router = require('express').Router();
 const postCtrl = require('../controllers/Post');
+const commentCtrl = require('../controllers/Comments');
+const multer = require('../middlewares/multer');
 
 
 //routes pour le CRUD des posts
 
 router.get('/', postCtrl.getAllPosts);
-router.post('/', postCtrl.createPost);
-router.put('/:id', postCtrl.updatePost);
+router.get('/:id', postCtrl.getOnePost);
+router.post('/', multer, postCtrl.createPost);
+router.put('/:id', multer, postCtrl.updatePost);
 router.delete('/:id', postCtrl.deletePost);
-router.patch('/like-post/:id', postCtrl.likePost);
-router.patch('/unlike-post/:id', postCtrl.unlikePost);
+router.patch('/:id/like-unlike-post', postCtrl.likeUnlikePost);
 
 //routes pour les commentaires
 
-router.patch('/comment-post/:id', postCtrl.commentPost);
-router.patch('/edit-comment-post/:id', postCtrl.editCommentPost);
-router.patch('/delete-comment-post/:id', postCtrl.deleteCommentPost);
+router.get('/:id/comments', commentCtrl.getComment);
+router.post('/:id/comments', commentCtrl.createComment);
+
 
 module.exports = router;
