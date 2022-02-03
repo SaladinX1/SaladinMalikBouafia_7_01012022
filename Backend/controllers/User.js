@@ -19,17 +19,24 @@ exports.signUp = async (req, res, next) => {
             email,
             password
         });
-        if (user.email === req.body.email) {
+        // userModel.findOne({
+        //     where: {
+        //         email: req.body.email
+        //     }
+        // }).then(email => {
+        //     if (email == req.body.email) {
+        //         return res.status(401).json({
+        //             message: `Email déjà enregistré , merci d'entrer un email valide.`
+        //         })
+        //     } else {
+        //         next();
+        //         user.save();
+        //         res.status(201).json({
+        //             user: user.id
+        //         });
+        //     }
+        // })
 
-            return res.status(401).json({
-                message: 'Email déjà inscrit , veuillez inscrire une autre adresse, merci'
-            });
-
-        }
-        user.save();
-        res.status(201).json({
-            user: user.id
-        });
     } catch (err) {
         res.status(400).send({
             err
@@ -72,9 +79,9 @@ exports.signIn = async (req, res, next) => {
 
 exports.signOut = (req, res, next) => {
 
-    res.cookie('jwt', '', {
-        timeLimit: 1
-    });
-    res.redirect('/');
+    // res.cookie('jwt', '', {
+    //     timeLimit: 1
+    // });
+    // res.redirect('/');
 
 }
