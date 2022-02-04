@@ -4,39 +4,24 @@ const userModel = require('../models/User');
 const timeLimit = 3 * 24 * 60 * 60 * 1000;
 
 exports.signUp = async (req, res, next) => {
-
-
     const {
         pseudo,
         email
     } = req.body
 
     try {
-        const salt = await bcrypt.genSalt(10);
+        const salt = await bcrypt.genSalt(2);
         const password = await bcrypt.hash(req.body.password, salt);
-        const user = await userModel.create({
+        const userItem = new userModel({
             pseudo,
             email,
             password
         });
-        // userModel.findOne({
-        //     where: {
-        //         email: req.body.email
-        //     }
-        // }).then(email => {
-        //     if (email == req.body.email) {
-        //         return res.status(401).json({
-        //             message: `Email déjà enregistré , merci d'entrer un email valide.`
-        //         })
-        //     } else {
-        //         next();
-        //         user.save();
-        //         res.status(201).json({
-        //             user: user.id
-        //         });
-        //     }
-        // })
-
+        userItem.save()
+            .then(res.status(201).json({
+                message: 'User created !'
+            }))
+            .catch(error => console.log(error));
     } catch (err) {
         res.status(400).send({
             err

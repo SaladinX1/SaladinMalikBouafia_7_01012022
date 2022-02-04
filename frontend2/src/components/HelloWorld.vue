@@ -26,13 +26,12 @@
       </div>
 
       <button @click="register()" class="btn btn-primary">Envoyer</button>
+      <button @click="getPost()" class="btn btn-primary">getPost</button>
     </form>
   </div>
 </template>
 
 <script>
-import registerService from '../services/register'
-
 export default {
   name: 'Register',
   data () {
@@ -45,8 +44,8 @@ export default {
         pseudo: this.pseudo,
         password: this.password
       }
-      registerService
-        .registery(user)
+      this.axios
+        .post('http://localhost:3000/auth/signup', user)
         .then((res) => {
           console.log(res)
           alert('User created')
@@ -54,6 +53,14 @@ export default {
         .catch((err) => {
           alert(' une erreur est survenue :( : ' + err)
         })
+    },
+    getPost () {
+      this.axios
+        .get('http://localhost:3000/posts', { timeout: 5000 })
+        .then((res) => {
+          console.log('message', res)
+        })
+        .catch((error) => console.log(error))
     }
   }
 }
