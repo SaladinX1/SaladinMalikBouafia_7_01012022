@@ -5,8 +5,10 @@ const sequelize = require('../Database/db.config');
 const Comments = sequelize.define(`Comments`, {
 
     Id: {
-        type: Sequelize.STRING
-
+        type: Sequelize.NUMBER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
     },
     Pseudo: {
         type: Sequelize.STRING,
