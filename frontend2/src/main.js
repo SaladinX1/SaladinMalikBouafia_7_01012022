@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
+import router from './Routes'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import bootstrap from 'bootstrap/dist/css/bootstrap.min.css'
