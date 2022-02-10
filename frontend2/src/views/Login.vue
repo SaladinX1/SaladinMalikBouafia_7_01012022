@@ -9,9 +9,7 @@
         <label for="email">E-mail</label>
         <input v-model="email" type="email" id="email" class="form-control" />
       </div>
-
-      <div>
-        <label for="password">Mot de passe</label>
+      <div>  <label for="password">Mot de passe</label>
         <input
           v-model="password"
           type="password"
@@ -40,9 +38,10 @@ export default {
       loginService
         .login(this.email, this.password)
         .then((res) => {
-          // 1. stocker le token dans le sessionStorage
-          // 2. rediriger l'utilisateur sur la page forum
-          console.log(res.data)
+          const tokenUser = res.data.token
+          document.cookie = `token=${tokenUser}; expires=${new Date(2022, 1, 15).toUTCString()}`
+          sessionStorage.setItem('token', tokenUser)
+          this.$router.push({ path: '/forum' })
         })
         .catch((err) => {
           this.errorMessage = err.response.data.message
