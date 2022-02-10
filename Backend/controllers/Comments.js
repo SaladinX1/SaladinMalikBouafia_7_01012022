@@ -5,7 +5,7 @@ module.exports.createComment = (req, res) => {
 
     const commentItem = new commentModel({
         //picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-        message: req.body.text
+        message: req.body.message
     });
     commentItem.save()
         .then(res.status(201).json({
