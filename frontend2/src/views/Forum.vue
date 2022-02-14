@@ -1,79 +1,91 @@
 <template>
-    
      <div class="fil-posts">
-
-          <div>
-         <post v-bind:key="reveal" v-bind:togglePost="togglePost"> </post>
-         <div @click="togglePost()" class="btn btn-succes">Je poste un message</div>
+         <h1> Liste des posts </h1>
+         <button  @click="directPost()">Je crée mon Post !</button>
+         <hr>
+         <div class='available-posts'>
+         <div class="displaying-post" v-bind:key="post.id" v-for="post in posts" >
+             <img  :src="post.picture" />
+             <span class="message"> {{ post.message }}</span>
          </div>
-
-        
-         <ul>
-             <li v-bind:key="postDisplay" v-for="post in postDisplay"> {{ post }} </li>
-         </ul>
-
-        
-
-     </div>
+         </div>
+      </div>
 
 </template>
 
 <script>
-import {bus} from '../main'
-import Post from '../components/Post.vue'
-import axios from 'axios'
+import forumService from '../services/forum'
 
 export default {
-    Data() {
-
-        return {
-            reveal: false
-            }
-     
-    },
-    components: { Post },
-    name: Forum,
-    components: Post,
-     methods: {
-
-    sendPost() {
-           axios.post('http://localhost:3000/posts').then(post => {
-               console.log(post);
-                alert("Merci de t'être exprimé :)");
-           })
-           .catch(error => console.log(error))}},
-
-    mounted() {
-        axios.get('http://localhost:3000/posts').then(post => {
-            console.log('message :', post)
-            const postDisplay = post;
-            return postDisplay;
-        }).catch(error => console.log(error))},
-
-    togglePost: function() {
-            this.reveal = !this.reveal
-        }} 
-      
+  name: 'Forum',
+  data () {
+    return {
+      reveal: false,
+      posts: []
+    }
+  },
+  mounted () {
+    forumService.forum().then(posts => {
+      console.log('message :', posts.data)
+      this.posts = posts.data
+    })
+      .catch(error => console.log(error))
+  },
+  methods: {
+    directPost () {
+      this.$router.push({ path: '/addpost' })
+    }
+  }
+}
 </script>
 
 <style  scoped>
 
  .fil-posts {
-
-  width: 950px;
+  width: 100%;
   height: auto;
-  color: gray;
   border: 1px solid black;
-  border-radius: 10%;
+  margin: 2% auto ;
  }
 
-button {
-    outline: none;
-    border: none;
-    color: lightblue;
-    background-color: #333;
-    padding: 15px;
-    font-size: 25px;
-
+.available-posts {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
+
+.displaying-post {
+width: 25%;
+height: auto;
+margin: 20px;
+padding: 15px;
+border: 1px solid rgb(15, 161, 219);
+margin-bottom: 10px;
+cursor: pointer;
+}
+
+img {
+    width:100%;
+    height: 80%;
+    object-fit: cover;
+}
+.message {
+    display: inline-block;
+    align-self: flex-end;
+    margin-top: 30px;
+    font-weight: 600;
+}
+
+button {
+    display: block;
+    margin-left: auto;
+    outline: none;
+    padding: 10px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    border: 2px outset orangered;
+    color: rgb(0, 0, 0);
+    background-color: rgb(0, 255, 42) ;
+}
+
 </style>
