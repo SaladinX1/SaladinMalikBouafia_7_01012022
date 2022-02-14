@@ -14,7 +14,7 @@ app.use(express.urlencoded({
 //app.use(cookieParser());
 
 
-app.use('images', express.static(path.join(__dirname, '/images')));
+app.use('/images', express.static(path.join(__dirname, '/images')));
 
 
 app.use('/auth/', userRoutes);
