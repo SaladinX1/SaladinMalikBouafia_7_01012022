@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import Forum from './views/Forum'
-import Post from './views/Post'
+import PostDetail from './views/PostDetail'
 import addPost from './views/addPost'
 
 Vue.use(VueRouter)
@@ -21,8 +21,9 @@ const routes = [{
   component: Forum
 },
 {
-  path: '/post',
-  component: Post
+  path: '/post/:id',
+  component: PostDetail,
+  props: true
 },
 {
   path: '/addpost',
