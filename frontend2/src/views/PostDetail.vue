@@ -1,8 +1,10 @@
 <template>
-      <div v-if="post" class="post" >
+<div>
+  <div v-if="post" class="post" >
              <img :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
          </div>
+</div>
 </template>
 
 <script>
@@ -28,9 +30,27 @@ export default {
 <style>
 
 .post {
+  display: flex;
+  flex-direction: column;
  margin: 10% auto;
- width: 60%;
- height: 800px;
- background-color: rgb(255, 163, 16);
+ width: 70%;
+ height: 900px;
+ border-radius: 25px;
+ background-color: rgb(255, 202, 117);
 }
+
+img {
+  width: 90%;
+  height: 350px;
+  border-radius: 25px;
+  object-fit: cover;
+  margin: 10% auto;
+}
+
+.message {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 600;
+}
+
 </style>
