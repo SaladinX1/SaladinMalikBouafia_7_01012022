@@ -1,5 +1,6 @@
 <template>
 <body>
+  <div class="arrow-left" @click="backToForum()" > ⇦ </div>
 <div class="create-post">
     <h1>Crée ton post ici 😁 !</h1>
     <div class="display-post">
@@ -29,7 +30,11 @@ export default {
         this.$router.push({ path: '/forum' })
       }
       ).catch(error => console.log(error))
+    },
+    backToForum () {
+      this.$router.push({ path: '/forum' })
     }
+
   }
 }
 </script>
@@ -38,6 +43,15 @@ export default {
 
 body {
  background-image: linear-gradient(45deg, rgb(24, 159, 172) , rgb(39, 34, 32));
+}
+
+.arrow-left {
+  position: absolute;
+  top: -50px;
+  left: 20px;
+  color: rgb(255, 255, 255);
+  font-size: 8rem;
+  cursor: pointer;
 }
 
 .create-post h1 {
