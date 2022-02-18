@@ -6,6 +6,10 @@
   <div v-if="post" class="post" >
              <img :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
+             <div class="button-display">
+               <button class="put">Modifier</button>
+               <button class="delete">Supprimer</button>
+             </div>
          </div>
 </div>
 </template>
@@ -36,6 +40,25 @@ export default {
 </script>
 
 <style>
+
+.button-display {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 70px;
+}
+
+.put {
+  background-color: aqua;
+  color: rgb(0, 0, 0);
+  margin-right: 50px;
+}
+
+.delete {
+  background-color: rgb(255, 0, 34);
+  color: rgb(0, 0, 0);
+  margin-left: 50px;
+}
 
 .arrow-left {
   position: absolute;
