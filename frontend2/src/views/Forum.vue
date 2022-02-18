@@ -1,16 +1,18 @@
 <template>
+<div>
+<header>
+   <h1> Groupomonia  </h1>
+   <button  @click="directPost()">Je crée mon Post !</button>
+</header>
      <div class="fil-posts">
-         <h1> Liste des posts </h1>
-         <button  @click="directPost()">Je crée mon Post !</button>
-         <hr>
          <div class='available-posts'>
-         <div class="displaying-post" v-bind:key="post.id" v-for="post in posts" >
-             <img  :src="post.picture" />
+         <div class="displaying-post" @click="selectPost(post.id)" v-bind:key="post.id" v-for="post in posts">
+             <img  :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
          </div>
          </div>
       </div>
-
+    </div>
 </template>
 
 <script>
@@ -20,7 +22,6 @@ export default {
   name: 'Forum',
   data () {
     return {
-      reveal: false,
       posts: []
     }
   },
@@ -34,18 +35,36 @@ export default {
   methods: {
     directPost () {
       this.$router.push({ path: '/addpost' })
+    },
+    selectPost (id) {
+      this.$router.push({ path: '/post/' + id })
     }
   }
 }
 </script>
 
-<style  scoped>
+<style scoped>
+
+header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  top: 0px;
+  border-bottom: 2px solid orangered;
+  background-color: rgb(62, 154, 170);
+}
+
+h1 {
+  color: white;
+  font-weight: 600;
+}
 
  .fil-posts {
   width: 100%;
   height: auto;
-  border: 1px solid black;
-  margin: 2% auto ;
+  margin: 5% auto ;
  }
 
 .available-posts {
@@ -59,33 +78,39 @@ width: 25%;
 height: auto;
 margin: 20px;
 padding: 15px;
-border: 1px solid rgb(15, 161, 219);
+border: 2px solid rgb(255, 81, 0);
 margin-bottom: 10px;
 cursor: pointer;
 }
 
 img {
     width:100%;
-    height: 80%;
+    height: 70%;
     object-fit: cover;
 }
+
 .message {
     display: inline-block;
     align-self: flex-end;
-    margin-top: 30px;
+    color: white;
     font-weight: 600;
+    font-size: 1.6rem;
+    text-align: center;
 }
 
 button {
     display: block;
     margin-left: auto;
+    margin-right: 15px;
     outline: none;
-    padding: 10px;
+    width: 10%;
+    padding: 10px ;
     font-size: 1.1rem;
-    border-radius: 10px;
+    font-weight: 600;
+    border-radius: 20px;
     border: 2px outset orangered;
     color: rgb(0, 0, 0);
-    background-color: rgb(0, 255, 42) ;
+    background-color: rgb(227, 239, 240);
 }
 
 </style>
