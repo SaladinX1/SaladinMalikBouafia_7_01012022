@@ -1,5 +1,8 @@
 <template>
 <div>
+  <header>
+    <div class="arrow-left" @click="backToForum()" > ⇦ </div>
+    </header>
   <div v-if="post" class="post" >
              <img :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
@@ -23,11 +26,25 @@ export default {
       this.post = post.data
     }).catch(error => console.log(error))
   },
+  methods: {
+    backToForum () {
+      this.$router.push({ path: '/forum' })
+    }
+  },
   props: ['id']
 }
 </script>
 
 <style>
+
+.arrow-left {
+  position: absolute;
+  top: -50px;
+  left: 20px;
+  color: rgb(255, 255, 255);
+  font-size: 8rem;
+  cursor: pointer;
+}
 
 .post {
   display: flex;
