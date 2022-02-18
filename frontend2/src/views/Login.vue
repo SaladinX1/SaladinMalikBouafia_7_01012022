@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link to="/register">Register</router-link>
+    <router-link class="register-link"   to="/register">Register</router-link>
 
     <form class="form">
       <h1>Connexion</h1>
@@ -55,7 +55,17 @@ export default {
 .errorMessage {
  color: red;
  text-align: right;
+}
 
+.register-link {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  position: absolute;
+  top: 0px;
+}
+
+.form {
+  color: white;
 }
 
 </style>
