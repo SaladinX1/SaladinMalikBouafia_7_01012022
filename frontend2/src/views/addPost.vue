@@ -51,7 +51,7 @@ body {
   justify-content: center;
   width: 1000px;
   height: 500px;
-  background-color: rgb(197, 228, 20);
+  background-color: rgb(71, 238, 188);
   margin: 200px auto 0;
   border-radius: 15px;
   border: 2px solid rgb(156, 255, 64);
@@ -75,15 +75,14 @@ display: flex;
 button {
   align-self: center;
  outline: none;
- width: 50%;
+ width: 30%;
   padding: 10px;
-    margin: 10px;
-    font-size: 1.1rem;
+    margin: 20px 20px;
+    font-size: 1.5rem;
     font-weight: 600;
-    border-radius: 20px;
-    border: 2px outset orangered;
+    border: 2px outset rgb(0, 0, 0);
     color: rgb(0, 0, 0);
-    background-color: rgb(24, 180, 228) ;
+    background-color: rgb(236, 255, 66) ;
 }
 
 </style>
