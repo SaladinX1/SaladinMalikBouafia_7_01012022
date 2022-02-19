@@ -8,7 +8,7 @@
              <span class="message"> {{ post.message }}</span>
              <div class="button-display">
                <button class="put">Modifier</button>
-               <button class="delete">Supprimer</button>
+               <button @click="deletePost()" class="delete">Supprimer</button>
              </div>
          </div>
 </div>
@@ -16,6 +16,8 @@
 
 <script>
 import postService from '../services/post'
+import putPostService from '../services/putPost'
+import deletePostService from '../services/deletePost'
 
 export default {
   name: 'PostDetail',
@@ -33,6 +35,20 @@ export default {
   methods: {
     backToForum () {
       this.$router.push({ path: '/forum' })
+    },
+    putPost () {
+      putPostService.putPost(this.id).then(res => {
+        console.log('retour post message :', res)
+        alert('Votre poste a bien été modifié, super 😃')
+      }
+      ).catch(error => console.log(error))
+    },
+    deletePost () {
+      deletePostService.deletePost(this.id).then(res => {
+        console.log('message post detruit :', res)
+        alert('Votre post a été suprimé !')
+        this.$router.push({ path: '/forum' })
+      })
     }
   },
   props: ['id']
