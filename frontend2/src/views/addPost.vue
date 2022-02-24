@@ -5,7 +5,7 @@
     <h1>Crée ton post ici 😁 !</h1>
     <div class="display-post">
       <input type="file" class="file">
-      <textarea class="area" name="post" id="post" cols="20" rows="10" ></textarea>
+      <textarea v-model="message" class="area" name="post" id="post" cols="20" rows="10" ></textarea>
       <button @click="sendPost()" >J'envoie mon message !</button>
     </div>
 </div>
@@ -20,13 +20,15 @@ import addPostService from '../services/addPpost'
 export default {
   data () {
     return {
+      message: ''
     }
   },
   methods: {
     sendPost () {
-      addPostService.addPost().then(post => {
+      const post = { message: this.message }
+      addPostService.addPost(post).then(post => {
         console.log(post)
-        alert('Post envoyé, bravo !')
+        alert('Post envoyé, bravo ! 😃')
         this.$router.push({ path: '/forum' })
       }
       ).catch(error => console.log(error))
@@ -34,7 +36,6 @@ export default {
     backToForum () {
       this.$router.push({ path: '/forum' })
     }
-
   }
 }
 </script>
@@ -65,7 +66,7 @@ body {
   justify-content: center;
   width: 1000px;
   height: 500px;
-  background-color: rgb(71, 238, 188);
+  background-color: rgb(215, 221, 219);
   margin: 200px auto 0;
   border-radius: 15px;
   border: 2px solid rgb(156, 255, 64);
