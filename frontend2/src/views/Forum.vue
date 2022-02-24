@@ -6,17 +6,20 @@
          <div class="displaying-post" @click="selectPost(post.id)" v-bind:key="post.id" v-for="post in posts">
              <img  :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
+             <button-add-post></button-add-post>
          </div>
       </div>
     </div>
 </template>
 
 <script>
+
 import forumService from '../services/forum'
 import headerTop from '../components/header-top.vue'
+import buttonAddPost from '../components/button-add-post.vue'
 
 export default {
-  components: { headerTop },
+  components: { headerTop, buttonAddPost },
   name: 'Forum',
   data () {
     return {
@@ -40,27 +43,13 @@ export default {
 
 <style scoped>
 
-header {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 70px;
-  position: fixed;
-  top: 0px;
-  border-bottom: 2px solid rgb(165, 46, 3);
-  background-color: rgb(209, 216, 218);
-}
-
-h1 {
-  color: rgb(0, 0, 0);
-  font-weight: 600;
-}
-
  .fil-posts {
   width: 100%;
-  margin: 10% auto;
-  flex-direction: column-reverse;
-  justify-content: center;
+  margin: 5% auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
  }
 
 .displaying-post {
