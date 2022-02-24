@@ -1,15 +1,11 @@
 <template>
 <div>
-<header>
-   <h1> Groupomonia  </h1>
-   <button  @click="directPost()">Je crée mon Post !</button>
-</header>
+<header-top>
+</header-top>
      <div class="fil-posts">
-         <div class='available-posts'>
          <div class="displaying-post" @click="selectPost(post.id)" v-bind:key="post.id" v-for="post in posts">
              <img  :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
-         </div>
          </div>
       </div>
     </div>
@@ -17,8 +13,10 @@
 
 <script>
 import forumService from '../services/forum'
+import headerTop from '../components/header-top.vue'
 
 export default {
+  components: { headerTop },
   name: 'Forum',
   data () {
     return {
@@ -33,9 +31,6 @@ export default {
       .catch(error => console.log(error))
   },
   methods: {
-    directPost () {
-      this.$router.push({ path: '/addpost' })
-    },
     selectPost (id) {
       this.$router.push({ path: '/post/' + id })
     }
@@ -52,32 +47,28 @@ header {
   height: 70px;
   position: fixed;
   top: 0px;
-  border-bottom: 2px solid orangered;
-  background-color: rgb(62, 154, 170);
+  border-bottom: 2px solid rgb(165, 46, 3);
+  background-color: rgb(209, 216, 218);
 }
 
 h1 {
-  color: white;
+  color: rgb(0, 0, 0);
   font-weight: 600;
 }
 
  .fil-posts {
   width: 100%;
-  height: auto;
-  margin: 5% auto ;
+  margin: 10% auto;
+  flex-direction: column-reverse;
+  justify-content: center;
  }
 
-.available-posts {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-}
-
 .displaying-post {
-width: 25%;
-height: auto;
-margin: 20px;
-padding: 15px;
+width: 40%;
+height: 500px;
+margin: 5% auto;
+padding: 10px;
+border-radius: 20px;
 border: 2px solid rgb(255, 81, 0);
 margin-bottom: 10px;
 cursor: pointer;
@@ -85,7 +76,8 @@ cursor: pointer;
 
 img {
     width:100%;
-    height: 70%;
+    height: 90%;
+    margin: 0;
     object-fit: cover;
 }
 
@@ -96,21 +88,6 @@ img {
     font-weight: 600;
     font-size: 1.6rem;
     text-align: center;
-}
-
-button {
-    display: block;
-    margin-left: auto;
-    margin-right: 15px;
-    outline: none;
-    width: 10%;
-    padding: 10px ;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 20px;
-    border: 2px outset orangered;
-    color: rgb(0, 0, 0);
-    background-color: rgb(227, 239, 240);
 }
 
 </style>
