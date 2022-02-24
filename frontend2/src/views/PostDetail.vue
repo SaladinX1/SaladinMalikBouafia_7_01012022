@@ -11,10 +11,10 @@
                <p class="unlike">👎</p>
                </div>
              <div class="button-display">
-               <button @click="displayPut()" class="put">Modifier</button>
+               <button @click="togglePut()" class="put">Modifier</button>
                <button @click="deletePost()" class="delete">Supprimer</button>
              </div>
-             <put-post-template v-bind='putPostTemplate' ></put-post-template>
+             <put-post-template v-bind:reveal='reveal' v-bind:togglePut='togglePut' ></put-post-template>
          </div>
 </div>
 </template>
@@ -32,7 +32,7 @@ export default {
   data () {
     return {
       post: {},
-      PutPostTemplate: false
+      reveal: false
     }
   },
   mounted () {
@@ -45,8 +45,8 @@ export default {
     backToForum () {
       this.$router.push({ path: '/forum' })
     },
-    putDisplay () {
-      this.putPostTemplate = !putPostTemplate
+    togglePut () {
+      this.reveal = !this.reveal
     },
     deletePost () {
       if (window.confirm('Voulez-vous vraiment supprimer votre post ?')) {
@@ -77,7 +77,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 70px;
+  margin: 30px;
 }
 
 .put {
@@ -108,7 +108,7 @@ export default {
  width: 70%;
  height: auto;
  border-radius: 25px;
- background-color: rgb(255, 202, 117);
+ background-color: rgb(233, 228, 222);
 }
 
 .like-unlike {

@@ -1,5 +1,5 @@
 <template>
-    <div class="put-div">
+    <div class="put-div" v-if='reveal'>
         <div class="put-form">
              <h1>Modifie ton post ici 😁 !</h1>
         <form method="Post">
@@ -9,7 +9,7 @@
         </div>
         <div class="put-button-displaying">
         <button class="put-button-validation" @click="putPost(id)">Je modifie mon message !</button>
-        <button class="canceled" @click="toHidePut()">Annuler</button>
+        <button class="canceled" @click='togglePut'>Annuler</button>
         </div>
         </form>
         </div>
@@ -21,6 +21,7 @@
 import putService from '../services/putPost'
 
 export default {
+  name: 'putPostTemplate',
   data () {
     return {
     }
@@ -31,7 +32,8 @@ export default {
         console.log('message put :', res)
       }).catch(error => console.log(error))
     }
-  }
+  },
+  props: ['reveal', 'togglePut']
 }
 </script>
 
