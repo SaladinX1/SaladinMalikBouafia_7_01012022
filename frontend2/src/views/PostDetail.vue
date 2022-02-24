@@ -6,24 +6,33 @@
   <div v-if="post" class="post" >
              <img :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
+             <div class="like-unlike" >
+               <p class="like" @click="likeUnlike()">👍</p>
+               <p class="unlike">👎</p>
+               </div>
              <div class="button-display">
-               <button class="put">Modifier</button>
+               <button @click="displayPut()" class="put">Modifier</button>
                <button @click="deletePost()" class="delete">Supprimer</button>
              </div>
+             <put-post-template v-bind='putPostTemplate' ></put-post-template>
          </div>
 </div>
 </template>
 
 <script>
+
 import postService from '../services/post'
-import putPostService from '../services/putPost'
 import deletePostService from '../services/deletePost'
+import likeUnlikeService from '../services/likeUnlike'
+import putPostTemplate from '../components/putPostTemplate.vue'
 
 export default {
+  components: { putPostTemplate },
   name: 'PostDetail',
   data () {
     return {
-      post: {}
+      post: {},
+      PutPostTemplate: false
     }
   },
   mounted () {
@@ -36,19 +45,26 @@ export default {
     backToForum () {
       this.$router.push({ path: '/forum' })
     },
-    putPost () {
-      putPostService.putPost(this.id).then(res => {
-        console.log('retour post message :', res)
-        alert('Votre poste a bien été modifié, super 😃')
-      }
-      ).catch(error => console.log(error))
+    putDisplay () {
+      this.putPostTemplate = !putPostTemplate
     },
     deletePost () {
-      deletePostService.deletePost(this.id).then(res => {
-        console.log('message post detruit :', res)
-        alert('Votre post a été suprimé !')
-        this.$router.push({ path: '/forum' })
-      })
+      if (window.confirm('Voulez-vous vraiment supprimer votre post ?')) {
+        deletePostService.deletePost(this.id).then(res => {
+          console.log('message post detruit :', res)
+          alert('Votre post a été suprimé !')
+          this.$router.push({ path: '/forum' })
+        })
+      }
+    },
+    likeUnlike () {
+      likeUnlikeService.likeUnlike(this.id).then(res => {
+        console.log('likeUnlike message:', res)
+        const like = document.querySelector('like')
+        like.setAttribute('style', 'background-color : green')
+      }
+      ).catch(error => console.log(error)
+      )
     }
   },
   props: ['id']
@@ -72,7 +88,7 @@ export default {
 
 .delete {
   background-color: rgb(255, 0, 34);
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   margin-left: 50px;
 }
 
@@ -90,9 +106,26 @@ export default {
   flex-direction: column;
  margin: 10% auto;
  width: 70%;
- height: 900px;
+ height: auto;
  border-radius: 25px;
  background-color: rgb(255, 202, 117);
+}
+
+.like-unlike {
+  display: flex;
+  justify-content: center;
+}
+
+.like {
+  font-size: 2rem;
+  margin: 0 20px;
+  cursor: pointer
+}
+
+.unlike {
+  font-size: 2rem;
+  margin: 0 20px;
+  cursor: pointer;
 }
 
 img {
