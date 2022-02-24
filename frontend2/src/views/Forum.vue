@@ -6,8 +6,8 @@
          <div class="displaying-post" @click="selectPost(post.id)" v-bind:key="post.id" v-for="post in posts">
              <img  :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
-             <button-add-post></button-add-post>
          </div>
+         <button-add-post v-bind:directPost='directPost'></button-add-post>
       </div>
     </div>
 </template>
