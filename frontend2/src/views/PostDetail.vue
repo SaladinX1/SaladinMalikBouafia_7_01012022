@@ -15,6 +15,7 @@
                <button @click="deletePost()" class="delete">Supprimer</button>
              </div>
              <put-post-template v-bind:reveal='reveal' v-bind:togglePut='togglePut' ></put-post-template>
+             <comments></comments>
          </div>
 </div>
 </template>
@@ -25,9 +26,10 @@ import postService from '../services/post'
 import deletePostService from '../services/deletePost'
 import likeUnlikeService from '../services/likeUnlike'
 import putPostTemplate from '../components/putPostTemplate.vue'
+import comments from '../components/comments.vue'
 
 export default {
-  components: { putPostTemplate },
+  components: { putPostTemplate, comments },
   name: 'PostDetail',
   data () {
     return {
@@ -108,7 +110,8 @@ export default {
  width: 70%;
  height: auto;
  border-radius: 25px;
- background-color: rgb(233, 228, 222);
+ background-color: rgb(215, 221, 219);
+ border: 2px solid rgb(156, 255, 64);
 }
 
 .like-unlike {
