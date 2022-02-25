@@ -1,5 +1,6 @@
 <template>
-<body>
+
+<div>
   <div class="arrow-left" @click="backToForum()" > ⇦ </div>
 <div class="create-post">
     <h1>Crée ton post ici 😁 !</h1>
@@ -9,15 +10,16 @@
       <button @click="sendPost()" >J'envoie mon message !</button>
     </div>
 </div>
-</body>
+</div>
 
 </template>
 
 <script>
 
-import addPostService from '../services/addPpost'
+import addPostService from '../services/addPost'
 
 export default {
+  name: 'addPost',
   data () {
     return {
       message: ''
@@ -41,10 +43,6 @@ export default {
 </script>
 
 <style>
-
-body {
- background-image: linear-gradient(45deg, rgb(24, 159, 172) , rgb(39, 34, 32));
-}
 
 .arrow-left {
   position: absolute;
