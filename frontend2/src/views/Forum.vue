@@ -2,13 +2,16 @@
 <div>
 <header-top>
 </header-top>
-     <div class="fil-posts">
+     <div v-if="posts" class="fil-posts">
          <div class="displaying-post" @click="selectPost(post.id)" v-bind:key="post.id" v-for="post in posts">
              <img  :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
          </div>
-         <button-add-post v-bind:directPost='directPost'></button-add-post>
+         <button-add-post></button-add-post>
       </div>
+      <div v-else class="announce">
+ <p> Sois le premier à nous faire part de ton inspiration 😃 !</p>
+ </div>
     </div>
 </template>
 
@@ -42,6 +45,16 @@ export default {
 </script>
 
 <style scoped>
+
+ .announce {
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   font-size: 4rem;
+   color: white;
+ }
 
  .fil-posts {
   width: 100%;
