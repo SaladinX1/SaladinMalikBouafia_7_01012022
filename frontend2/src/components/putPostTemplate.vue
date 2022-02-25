@@ -8,7 +8,7 @@
         <textarea class="area" name="post" id="post" cols="20" rows="10" ></textarea>
         </div>
         <div class="put-button-displaying">
-        <button class="put-button-validation" @click="putPost(id)">Je modifie mon message !</button>
+        <button class="put-button-validation" @click="putPost(id)">Valider</button>
         <button class="canceled" @click='togglePut'>Annuler</button>
         </div>
         </form>
