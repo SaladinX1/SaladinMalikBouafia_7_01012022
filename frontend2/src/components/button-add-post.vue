@@ -6,15 +6,15 @@
 
 <script>
 export default {
-    data() {
-        return {}
-    },
-    methods: {
-        directPost () {
+  name: 'button-add-post',
+  data () {
+    return {}
+  },
+  methods: {
+    directPost () {
       this.$router.push({ path: '/addpost' })
     }
-    }
-    
+  }
 }
 </script>
 

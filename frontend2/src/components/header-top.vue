@@ -6,18 +6,19 @@
 
 <script>
 export default {
+  name: 'header-top',
   data () {
     return {}
   }
 }
 </script>
 
-<style>
+<style scoped>
 header {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 70px;
+  height: 80px;
   position: fixed;
   top: 0px;
   border-bottom: 2px solid rgb(165, 46, 3);
@@ -25,6 +26,8 @@ header {
 }
 
 h1 {
+    display: flex;
+    align-content: center;
   display: inline;
   color: rgb(0, 0, 0);
   font-weight: 600;
