@@ -15,8 +15,8 @@
                <button @click="deletePost()" class="delete">Supprimer</button>
              </div>
              <put-post-template v-bind:reveal='reveal' v-bind:togglePut='togglePut' ></put-post-template>
-             <comments></comments>
          </div>
+         <comments :id="id" ></comments>
 </div>
 </template>
 
@@ -39,7 +39,6 @@ export default {
   },
   mounted () {
     postService.getPostById(this.id).then(post => {
-      console.log('message post retour :', post)
       this.post = post.data
     }).catch(error => console.log(error))
   },

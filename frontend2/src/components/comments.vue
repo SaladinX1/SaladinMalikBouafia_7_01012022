@@ -1,10 +1,9 @@
 <template>
 <div class="bloc-comment-area">
     <h2>Commentaires :</h2>
-    <textarea class="edit-comment" cols="30" rows="10" v-model="comment"></textarea>
-    <button @click="sendComment()" class="comment-button">Envoyer</button>
-    <div class="bloc-comment" v-bind:key='comment' v-for="comment in comments ">
-        {{ comment }}
+    <hr>
+    <div class="bloc-comment" v-bind:key='comment.id' v-for="comment in comments ">
+      <div> {{ comment.User.pseudo }} </div> <div> {{ comment.message }} </div>
     </div>
     </div>
 </template>
@@ -12,17 +11,16 @@
 <script>
 
 import commentsServices from '../services/getComments'
-import postCommentServices from '../services/postComment'
 
 export default {
   name: 'comments',
   data () {
     return {
-      comments: [],
-      comment: ''
+      comments: []
     }
   },
-  Mounted () {
+  mounted () {
+    console.log('message recuperation :', this.id)
     commentsServices.comments(this.id).then(
       comments => {
         console.log('comment : ', comments.data)
@@ -30,22 +28,14 @@ export default {
       }
     ).catch(error => console.log(error))
   },
-  methods: {
-    sendComment () {
-      const comment = { comment: this.comment }
-      postCommentServices.addComment(comment).then(comment => {
-        console.log('commentaire unique : ', comment)
-        alert('Commentaire posté, bravo 😃 !')
-      }
-      ).catch(error => console.log(error))
-    }
-  }
+  props: ['id']
 }
 </script>
 
 <style>
 
 .bloc-comment_area {
+
     margin: 0 auto;
     display: flex;
     flex-direction: column;
