@@ -16,7 +16,7 @@
              </div>
              <put-post-template v-bind:reveal='reveal' v-bind:togglePut='togglePut' ></put-post-template>
          </div>
-         <comments :id="id" ></comments>
+           <comments :id="id" ></comments>
 </div>
 </template>
 
@@ -52,8 +52,6 @@ export default {
     deletePost () {
       if (window.confirm('Voulez-vous vraiment supprimer votre post ?')) {
         deletePostService.deletePost(this.id).then(res => {
-          console.log('message post detruit :', res)
-          alert('Votre post a été suprimé !')
           this.$router.push({ path: '/forum' })
         })
       }
@@ -105,7 +103,7 @@ export default {
 .post {
   display: flex;
   flex-direction: column;
- margin: 10% auto;
+ margin: 10% auto 2%;
  width: 70%;
  height: auto;
  border-radius: 25px;
