@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link to="/">Login</router-link>
+    <router-link class="login-link" to="/">Login</router-link>
 
     <form class="form">
       <h1>Inscription</h1>
@@ -24,7 +24,6 @@
           class="form-control"
         />
       </div>
-
       <button @click="register()" class="btn btn-primary">Envoyer</button>
     </form>
   </div>
@@ -49,7 +48,7 @@ export default {
         .registery(user)
         .then((res) => {
           console.log(res)
-          alert('User created')
+          alert('Vous êtes maintenant inscrit ! Bravo 😃 !')
         })
         .catch((err) => {
           alert(' une erreur est survenue :( : ' + err)
@@ -65,6 +64,18 @@ export default {
 ::after {
   padding: 0;
   margin: 0;
+}
+
+.login-link {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  position: absolute;
+  top: 0px;
+  cursor: pointer;
+}
+
+.login-link:hover {
+  color: white;
 }
 
 .form {
@@ -86,4 +97,5 @@ a {
   font-size: 30px;
   color: #333;
 }
+
 </style>
