@@ -5,6 +5,7 @@ import Register from './views/Register.vue'
 import Forum from './views/Forum'
 import PostDetail from './views/PostDetail'
 import addPost from './views/addPost'
+import addComment from './views/addComment'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [{
 {
   path: '/addpost',
   component: addPost
+},
+{
+  path: '/addcomment',
+  component: addComment,
+  props: true
 }
 ]
 const router = new VueRouter({
