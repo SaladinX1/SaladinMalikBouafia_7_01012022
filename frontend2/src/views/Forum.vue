@@ -2,6 +2,7 @@
 <div>
 <header-top>
 </header-top>
+   <h1> Partages ta sensation . . . </h1>
      <div v-if="posts" class="fil-posts">
          <div class="displaying-post" @click="selectPost(post.id)" v-bind:key="post.id" v-for="post in posts">
              <img  :src="post.picture"/>
@@ -10,7 +11,7 @@
          <button-add-post></button-add-post>
       </div>
       <div v-else class="announce">
- <p> Sois le premier à nous faire part de ton inspiration 😃 !</p>
+ <h2> Sois le premier à t'exprimer 😃 !</h2>
  </div>
     </div>
 </template>
@@ -46,6 +47,15 @@ export default {
 
 <style scoped>
 
+h1 {
+  margin: 8% auto 0;
+  font-style:italic;
+  font-weight: lighter;
+  font-size: 3rem;
+  color: orangered;
+  text-align: center;
+}
+
  .announce {
    position: absolute;
    top: 0;
@@ -58,7 +68,7 @@ export default {
 
  .fil-posts {
   width: 100%;
-  margin: 5% auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
