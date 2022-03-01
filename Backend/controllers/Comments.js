@@ -1,37 +1,34 @@
 const commentModel = require('../models/Comment');
+const User = require('../models/User');
 
 
 module.exports.createComment = (req, res) => {
-
+ const postId = req.params.id
+ console.log('postId:', postId);
     const commentItem = new commentModel({
-        //picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+
+        UserId: req.body.userId,
+        PostId: postId,
         message: req.body.message
     });
     commentItem.save()
         .then(res.status(201).json({
             message: 'Commentaire posté !'
-        }))
+        })).catch(error => console.log(error))
 }
 
 
-module.exports.getComment = (req, res) => {
-    commentModel.findAll()
+module.exports.getComments = (req, res) => {
+    commentModel.findAll( {
+        where: {
+        PostId: req.params.id },
+        include: User
+    })
+
         .then(comments => res.status(200).json(comments))
         .catch(error => res.status(400).json({
             message: error
         }))
-}
-
-
-module.exports.updateComment = (req, res) => {
-    commentModel.update({
-            message: req.body.message
-        }, {
-            where: {
-                id: req.params.id
-            }
-        }).then(comment => res.status(200).json(comment))
-        .catch(error => res.status(500).json(error))
 }
 
 
