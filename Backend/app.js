@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const userRoutes = require('./routes/User');
 const postRoutes = require('./routes/Post');
+const commentsRoutes = require('./routes/Comments')
 
 const cors = require('cors');
 app.use(cors());
@@ -14,12 +15,14 @@ app.use(express.urlencoded({
 //app.use(cookieParser());
 
 
-app.use('/images', express.static(path.join(__dirname, '/images')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 app.use('/auth/', userRoutes);
 
 app.use('/posts/', postRoutes);
+
+app.use('/comments/', commentsRoutes)
 
 
 
