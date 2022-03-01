@@ -3,9 +3,10 @@ const router = express.Router();
 const userCtrl = require('../controllers/User');
 const userErrors = require('../utils/errors.utils');
 
-router.post('/signup', userCtrl.signUp);
-router.post('/signin', userCtrl.signIn);
-router.post('/signout', userCtrl.signOut);
+
+router.post('/register', userCtrl.register);
+router.post('/login', userCtrl.login);
+router.post('/logout', userCtrl.logout);
 
 
 

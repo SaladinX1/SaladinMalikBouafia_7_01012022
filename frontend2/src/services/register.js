@@ -9,7 +9,7 @@ const http = axios.create({
 
 const registery = (user) =>
 
-  http.post('http://localhost:3000/auth/signup', {
+  http.post('http://localhost:3000/auth/register', {
 
     email: user.email,
     pseudo: user.pseudo,

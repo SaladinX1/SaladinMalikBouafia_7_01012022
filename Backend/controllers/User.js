@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const userModel = require('../models/User');
 const timeLimit = 3 * 24 * 60 * 60 * 1000;
 
-exports.signUp = async (req, res, next) => {
+exports.register = async (req, res, next) => {
     const {
         pseudo,
         email
@@ -19,7 +19,7 @@ exports.signUp = async (req, res, next) => {
         });
         userItem.save()
             .then(res.status(201).json({
-                message: 'User created !'
+                message: 'User created ! congratulations and welcome 😃 !'
             }))
             .catch(error => console.log(error));
     } catch (err) {
@@ -29,7 +29,7 @@ exports.signUp = async (req, res, next) => {
     }
 };
 
-exports.signIn = (req, res, next) => {
+exports.login = (req, res, next) => {
     userModel.findOne({
         where: {     
            email: req.body.email
@@ -69,11 +69,11 @@ exports.signIn = (req, res, next) => {
 }
 
 
-exports.signOut = (req, res, next) => {
+exports.logout = (req, res, next) => {
 
-    // res.cookie('jwt', '', {
-    //     timeLimit: 1
-    // });
-    // res.redirect('/');
+     res.cookie('jwt', '', {
+         timeLimit: 1
+     });
+     res.redirect('/');
 
 }
