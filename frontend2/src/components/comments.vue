@@ -2,28 +2,38 @@
 <div class="comment-area">
     <h2>Commentaires :</h2>
     <div class="comment-display" v-bind:key='comment.id' v-for="comment in comments ">
-      <div class="comment-pseudo"> {{ comment.User.pseudo }} </div> <div class="comment-message"> {{ comment.message }} </div>
-      <button @click="deleteComment()" class="delete-comment-button">Supprimer</button>
+      <div class="comment-pseudo">
+        {{ comment.User.pseudo }}
+      </div>
+      <div class="comment-message">
+         {{ comment.message }}
+      </div>
+      <div v-if="userId == comment.UserId" class="delete-comment-button">
+      <div @click="deleteComment()" >Supprimer</div>
+      </div>
     </div>
-    <button class="add-comment-button" @click="sendComment()">✚</button>
+    <button-add-comment :id="id"></button-add-comment>
 </div>
 </template>
 
 <script>
 
 import getCommentsServices from '../services/getComments'
-import postCommentServices from '../services/postComment'
 import deleteCommentServices from '../services/deleteComment'
+import buttonAddComment from '../components/button-add-comment.vue'
 
 export default {
+  components: { buttonAddComment },
   name: 'comments',
   data () {
     return {
-      comments: []
+      comments: [],
+      userId: ''
     }
   },
   mounted () {
-    console.log('message recuperation :', this.id)
+    this.userId = localStorage.getItem('userId')
+    console.log(this.userId)
     getCommentsServices.comments(this.id).then(
       comments => {
         console.log('comment : ', comments.data)
@@ -32,23 +42,16 @@ export default {
     ).catch(error => console.log(error))
   },
   methods: {
-    sendComment () {
-      const comment = { comment: this.comment }
-      postCommentServices.addComment(comment).then(comment => {
-        console.log('commentaire unique : ', comment)
-        alert('Commentaire posté, bravo 😃 !')
-      }
-      ).catch(error => console.log(error))
-    },
-    deletePost () {
+    deleteComment () {
       if (window.confirm('Voulez-vous vraiment supprimer votre commentaire ?')) {
         deleteCommentServices.deleteComment(this.id).then(res => {
-          console.log('message post detruit :', res)
+          console.log('message comment detruit :', res)
+          location.reload()
         })
       }
     }
   },
-  props: ['id', 'reveal', 'toggle']
+  props: ['id']
 }
 </script>
 
@@ -86,31 +89,13 @@ h2 {
   color: rgb(255, 255, 255);
   margin-left: 70% ;
   padding: 10px;
+  cursor: pointer;
     outline: none;
     height: 50px;
     width: 200px;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     border-radius: 15px;
 }
 
-.add-comment-button {
-    display: block;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    position:fixed;
-    bottom: 60px;
-    right: 60px;
-    padding: 10px;
-    outline: none;
-    height: 100px;
-    width: 100px;
-    font-size: 3rem;
-    font-weight: 600;
-    border-radius: 50%;
-    border: 2px outset orangered;
-    color: orangered;
-    background-color: rgb(227, 239, 240);
-}
 </style>
