@@ -4,7 +4,6 @@ const User = require('../models/User');
 
 module.exports.createComment = (req, res) => {
  const postId = req.params.id
- console.log('postId:', postId);
     const commentItem = new commentModel({
 
         UserId: req.body.userId,
