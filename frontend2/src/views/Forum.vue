@@ -2,17 +2,17 @@
 <div>
 <header-top>
 </header-top>
-   <h1> Partages ta sensation . . . </h1>
+   <h1> Partages tes sensations . . . </h1>
      <div v-if="posts" class="fil-posts">
          <div class="displaying-post" @click="selectPost(post.id)" v-bind:key="post.id" v-for="post in posts">
              <img  :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
          </div>
-         <button-add-post></button-add-post>
       </div>
       <div v-else class="announce">
  <h2> Sois le premier à t'exprimer 😃 !</h2>
  </div>
+  <button-add-post></button-add-post>
     </div>
 </template>
 
@@ -48,7 +48,7 @@ export default {
 <style scoped>
 
 h1 {
-  margin: 8% auto 0;
+  margin: 9% auto 0;
   font-style:italic;
   font-weight: lighter;
   font-size: 3rem;
@@ -57,11 +57,9 @@ h1 {
 }
 
  .announce {
-   position: absolute;
-   top: 0;
-   bottom: 0;
-   left: 0;
-   right: 0;
+   display: flex;
+   justify-content: center;
+   align-content: center;
    font-size: 4rem;
    color: white;
  }
