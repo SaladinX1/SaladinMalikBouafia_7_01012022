@@ -1,8 +1,8 @@
+const Like = require('../models/Like');
 const Post = require('../models/Post');
-const fs = require('fs');
-const {
-    param
-} = require('../routes/Post');
+//const Like = require('../models/like')
+//const fs = require('fs');
+
 
 
 module.exports.getAllPosts = (req, res) => {
@@ -16,10 +16,9 @@ module.exports.getAllPosts = (req, res) => {
 
 
 module.exports.createPost = (req, res) => {
-
-    const postItem = new Post({
-        //picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-        message: req.body.message
+    const postItem = new Post({    
+        message: req.body.message,
+        picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     });
     postItem.save()
         .then(res.status(201).json({
@@ -37,9 +36,7 @@ module.exports.getOnePost = (req, res) => {
 }
 
 
-
 module.exports.updatePost = (req, res) => {
-
     Post.update({
             message: req.body.message
         }, {
@@ -73,16 +70,16 @@ module.exports.deletePost = (req, res) => {
 
 
 
-module.exports.likeUnlikePost = (req, res) => {
+module.exports.likeDislikePost = (req, res) => {
 
-    // let like = req.body.like
+    let like = req.body.like
     let userId = req.body.userId
-    let posterId = req.params.id
+    let postId = req.params.id
 
     switch (like) {
         case 1:
-            Post.updateOne({
-                    id: posterId
+            Like.updateOne({
+                    id: postId
                 }, {
                     $push: {
                         usersLiked: userId
@@ -101,13 +98,13 @@ module.exports.likeUnlikePost = (req, res) => {
             break;
 
         case 0:
-            Post.findOne({
-                    id: posterId
+            Like.findOne({
+                    id: postId
                 })
                 .then((post) => {
                     if (post.usersLiked.includes(userId)) {
-                        Post.updateOne({
-                                id: posterId
+                        Like.updateOne({
+                                id: postId
                             }, {
                                 $pull: {
                                     usersLiked: userId
@@ -149,7 +146,7 @@ module.exports.likeUnlikePost = (req, res) => {
 
         case -1:
             Post.updateOne({
-                    id: posterId
+                    id: postId
                 }, {
                     $push: {
                         usersDisliked: userId
