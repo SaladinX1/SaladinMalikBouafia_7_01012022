@@ -3,11 +3,11 @@
 <div>
   <div class="arrow-left" @click="backToForum()" > ⇦ </div>
 <div class="create-post">
-    <h1>Crée ton post ici 😁 !</h1>
+    <h1>Envoies ton post ici 😁 !</h1>
     <div class="display-post">
-      <input type="file" class="file">
+      <input type="file" class="file" v-on:change="updatePicture" >
       <textarea v-model="message" class="area" name="post" id="post" cols="20" rows="10" ></textarea>
-      <button @click="sendPost()" >J'envoie mon message !</button>
+      <button @click="sendPost()" > Crée un post</button>
     </div>
 </div>
 </div>
@@ -22,18 +22,25 @@ export default {
   name: 'addPost',
   data () {
     return {
-      message: ''
+      message: '',
+      picture: ''
     }
   },
   methods: {
     sendPost () {
-      const post = { message: this.message }
-      addPostService.addPost(post).then(post => {
+      const data = new FormData()
+      data.append('message', this.message)
+      data.append('file', this.picture)
+      const userId = localStorage.getItem('userId')
+      addPostService.addPost(data, userId).then(post => {
         console.log(post)
         alert('Post envoyé, bravo ! 😃')
         this.$router.push({ path: '/forum' })
       }
       ).catch(error => console.log(error))
+    },
+    updatePicture (event) {
+      this.picture = event.target.files[0]
     },
     backToForum () {
       this.$router.push({ path: '/forum' })
