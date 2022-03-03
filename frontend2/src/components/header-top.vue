@@ -43,15 +43,11 @@ export default {
       this.$router.push({ path: '/' })
     },
     logout () {
-      const token = localStorage.getItem('token')
-      logoutServices.logout(token).then(res => {
-        console.log(res)
-        document.cookie = `${res.data.token}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`
         localStorage.removeItem('token')
+        localStorage.removeItem('userId')
         sessionStorage.removeItem('token')
-        this.$router.push({ path: '/forum' })
-      }).catch(error => console.log(error))
-    }
+        this.$router.push({ path: '/' })
+     }
   }
 }
 </script>
