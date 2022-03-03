@@ -24,19 +24,20 @@ export default {
   },
   methods: {
     sendComment () {
-      const comment = { comment: this.comment }
       const userId = localStorage.getItem('userId')
-      postCommentServices.addComment(comment, userId).then(comment => {
+      const comment = { message: this.comment, userId }
+      postCommentServices.addComment(comment, this.id).then(comment => {
         console.log('commentaire unique : ', comment)
         alert('Commentaire posté, bravo 😃 !')
-        this.$router.push({ path: '/forum' })
+        this.$router.push({ path: '/post/' + this.id })
       }
       ).catch(error => console.log(error))
     },
     back () {
       this.$router.push({ path: '/forum' })
     }
-  }
+  },
+  props: ['id']
 }
 </script>
 
