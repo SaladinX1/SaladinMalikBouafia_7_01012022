@@ -8,7 +8,7 @@
         <textarea class="area" name="post" id="post" cols="20" rows="10" ></textarea>
         </div>
         <div class="put-button-displaying">
-        <button class="put-button-validation" @click="putPost(id)">Valider</button>
+        <button class="put-button-validation" @click="putPost()">Valider</button>
         <button class="canceled" @click='togglePut'>Annuler</button>
         </div>
         </form>
@@ -30,10 +30,12 @@ export default {
     putPost () {
       putService.putPost(this.id).then(res => {
         console.log('message put :', res)
+        alert('Post modifié !')
+        this.$router.push({ path: '/forum' })
       }).catch(error => console.log(error))
     }
   },
-  props: ['reveal', 'togglePut']
+  props: ['reveal', 'togglePut', 'id']
 }
 </script>
 
