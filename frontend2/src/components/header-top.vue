@@ -11,8 +11,6 @@
 
 <script>
 
-import logoutServices from '../services/logout'
-
 export default {
   name: 'header-top',
   data () {
@@ -43,11 +41,11 @@ export default {
       this.$router.push({ path: '/' })
     },
     logout () {
-        localStorage.removeItem('token')
-        localStorage.removeItem('userId')
-        sessionStorage.removeItem('token')
-        this.$router.push({ path: '/' })
-     }
+      localStorage.removeItem('token')
+      localStorage.removeItem('userId')
+      sessionStorage.removeItem('token')
+      this.$router.push({ path: '/' })
+    }
   }
 }
 </script>
