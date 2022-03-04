@@ -26,6 +26,13 @@ export default {
       picture: ''
     }
   },
+  mounted () {
+    const hasToken = localStorage.getItem('token')
+    const hasUserId = localStorage.getItem('userId')
+    if (!hasToken && !hasUserId) {
+      window.location.href = '/'
+    }
+  },
   methods: {
     sendPost () {
       const data = new FormData()

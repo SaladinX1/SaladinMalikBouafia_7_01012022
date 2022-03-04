@@ -5,7 +5,7 @@
    <h1> Partages tes sensations . . . </h1>
      <div v-if="posts" class="fil-posts">
          <div class="displaying-post" @click="selectPost(post.id)" v-bind:key="post.id" v-for="post in posts">
-             <img  :src="post.picture"/>
+             <img :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
          </div>
       </div>
@@ -31,6 +31,11 @@ export default {
     }
   },
   mounted () {
+    const hasToken = localStorage.getItem('token')
+    const hasUserId = localStorage.getItem('userId')
+    if (!hasToken && !hasUserId) {
+      window.location.href = '/'
+    }
     forumService.forum().then(posts => {
       console.log('message :', posts.data)
       this.posts = posts.data
@@ -87,7 +92,7 @@ cursor: pointer;
 img {
     width:100%;
     height: 90%;
-    margin: 0;
+    margin: 5px;
     object-fit: cover;
 }
 

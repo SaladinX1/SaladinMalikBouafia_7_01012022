@@ -7,14 +7,14 @@
              <img :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
              <div class="like-unlike" >
-               <p class="like" @click="likeUnlike()">👍</p>
-               <p class="unlike">👎</p>
+               <p class="like" @click="likeUnlike()" value="0" >👍 {{ likeValue }}</p>
+               <p class="dislike" @click="likeUnlikeSend()" value="0">👎 {{ likeValue }}</p>
                </div>
              <div class="button-display">
                <button @click="togglePut()" class="put">Modifier</button>
                <button @click="deletePost()" class="delete">Supprimer</button>
              </div>
-             <put-post-template v-bind:reveal='reveal' v-bind:togglePut='togglePut' ></put-post-template>
+             <put-post-template v-bind:reveal='reveal' v-bind:togglePut='togglePut' :id="id" ></put-post-template>
          </div>
            <comments :id="id" ></comments>
 </div>
@@ -24,7 +24,7 @@
 
 import postService from '../services/post'
 import deletePostService from '../services/deletePost'
-import likeUnlikeService from '../services/likeUnlike'
+import likeUnlikeService from '../services/likeDislike'
 import putPostTemplate from '../components/putPostTemplate.vue'
 import comments from '../components/comments.vue'
 
@@ -34,12 +34,24 @@ export default {
   data () {
     return {
       post: {},
-      reveal: false
+      reveal: false,
+      likeValue: 0
     }
   },
   mounted () {
+    const hasToken = localStorage.getItem('token')
+    const hasUserId = localStorage.getItem('userId')
+    if (!hasToken && !hasUserId) {
+      window.location.href = '/'
+    }
     postService.getPostById(this.id).then(post => {
       this.post = post.data
+
+      // const userId = localStorage.getItem('userId')
+      // if (post.data.userId !== userId) {
+      //   const buttonDisplay = document.querySelector('.button-display')
+      //   buttonDisplay.style.display = 'none'
+      // }
     }).catch(error => console.log(error))
   },
   methods: {
@@ -56,8 +68,11 @@ export default {
         })
       }
     },
-    likeUnlike () {
-      likeUnlikeService.likeUnlike(this.id).then(res => {
+    likeDislikeSend () {
+      const userId = localStorage.getItem('userId')
+      // const like = document.querySelector('.like').value
+      // const dislike = document.querySelector('.dislike').value
+      likeUnlikeService.likeUnlike(userId).then(res => {
         console.log('likeUnlike message:', res)
         const like = document.querySelector('like')
         like.setAttribute('style', 'background-color : green')
@@ -114,6 +129,7 @@ export default {
 .like-unlike {
   display: flex;
   justify-content: center;
+  padding: 20px;
 }
 
 .like {
@@ -122,7 +138,7 @@ export default {
   cursor: pointer
 }
 
-.unlike {
+.dislike {
   font-size: 2rem;
   margin: 0 20px;
   cursor: pointer;
