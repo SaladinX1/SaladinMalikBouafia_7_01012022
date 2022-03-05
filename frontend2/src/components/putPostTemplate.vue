@@ -18,7 +18,7 @@
 
 <script>
 
-import putService from '../services/putPost'
+import postService from '../services/post'
 
 export default {
   name: 'putPostTemplate',
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     putPost () {
-      putService.putPost(this.id).then(res => {
+      postService.putPost(this.id).then(res => {
         console.log('message put :', res)
         alert('Post modifié !')
         this.$router.push({ path: '/forum' })

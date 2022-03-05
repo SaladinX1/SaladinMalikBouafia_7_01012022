@@ -6,7 +6,7 @@
     <h1>Envoies ton post ici 😁 !</h1>
     <div class="display-post">
       <input type="file" class="file" v-on:change="updatePicture" >
-      <textarea v-model="message" class="area" name="post" id="post" cols="20" rows="10" ></textarea>
+      <textarea v-model="message" class="area" name="post" id="post" cols="20" rows="10"  maxlength="400" minlength="1"></textarea>
       <button @click="sendPost()" > Crée un post</button>
     </div>
 </div>
@@ -16,7 +16,7 @@
 
 <script>
 
-import addPostService from '../services/addPost'
+import addPostService from '../services/post'
 
 export default {
   name: 'addPost',

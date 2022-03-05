@@ -18,7 +18,7 @@
 
 <script>
 
-import forumService from '../services/forum'
+import postService from '../services/post'
 import headerTop from '../components/header-top.vue'
 import buttonAddPost from '../components/button-add-post.vue'
 
@@ -36,7 +36,7 @@ export default {
     if (!hasToken && !hasUserId) {
       window.location.href = '/'
     }
-    forumService.forum().then(posts => {
+    postService.getAllPost().then(posts => {
       console.log('message :', posts.data)
       this.posts = posts.data
     })
@@ -92,13 +92,14 @@ cursor: pointer;
 img {
     width:100%;
     height: 90%;
-    margin: 5px;
+    margin: 0;
     object-fit: cover;
 }
 
 .message {
     display: inline-block;
     align-self: flex-end;
+    padding: 10px 5px;
     color: white;
     font-weight: 600;
     font-size: 1.6rem;

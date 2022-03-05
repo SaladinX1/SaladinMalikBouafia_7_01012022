@@ -23,7 +23,6 @@
 <script>
 
 import postService from '../services/post'
-import deletePostService from '../services/deletePost'
 import likeUnlikeService from '../services/likeDislike'
 import putPostTemplate from '../components/putPostTemplate.vue'
 import comments from '../components/comments.vue'
@@ -63,7 +62,7 @@ export default {
     },
     deletePost () {
       if (window.confirm('Voulez-vous vraiment supprimer votre post ?')) {
-        deletePostService.deletePost(this.id).then(res => {
+        postService.deletePost(this.id).then(res => {
           this.$router.push({ path: '/forum' })
         })
       }
