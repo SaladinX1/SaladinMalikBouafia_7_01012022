@@ -1,14 +1,14 @@
 <template>
 
-<div>
+<div class="addPost-view">
   <div class="arrow-left" @click="backToForum()" > ⇦ </div>
 <div class="create-post">
     <h1>Envoies ton post ici 😁 !</h1>
     <div class="display-post">
       <input type="file" class="file" v-on:change="updatePicture" >
       <textarea v-model="message" class="area" name="post" id="post" cols="20" rows="10"  maxlength="400" minlength="1"></textarea>
-      <button @click="sendPost()" > Crée un post</button>
     </div>
+    <button @click="sendPost()" > Crée un post</button>
 </div>
 </div>
 
@@ -55,6 +55,11 @@ export default {
 
 <style>
 
+.addPost-view {
+  width: 100%;
+  height:100%;
+}
+
 .arrow-left {
   position: absolute;
   top: -50px;
@@ -73,7 +78,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 1000px;
+  width: 60%;
   height: 500px;
   background-color: rgb(215, 221, 219);
   margin: 200px auto 0;
@@ -98,8 +103,8 @@ display: flex;
 
 button {
   align-self: center;
- outline: none;
- width: 30%;
+  outline: none;
+  width: 30%;
   padding: 10px;
     margin: 20px 20px;
     font-size: 1.5rem;

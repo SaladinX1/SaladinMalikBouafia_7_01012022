@@ -5,8 +5,8 @@
     <h1>Envoies ton commentaire ici 😁 !</h1>
     <div class="display-comment">
       <textarea v-model="comment" class="area" name="comment" id="comment" cols="20" rows="10" ></textarea>
-      <button @click="sendComment()" >Je commente !</button>
     </div>
+    <button @click="sendComment()" >Je commente !</button>
 </div>
 </div>
 </template>
@@ -65,7 +65,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 1000px;
+  width: 60%;
   height: 500px;
   background-color: rgb(215, 221, 219);
   margin: 200px auto 0;
