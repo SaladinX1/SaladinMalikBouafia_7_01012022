@@ -9,8 +9,8 @@
              <span class="message"> {{ post.message }}</span>
          </div>
       </div>
-      <div v-else class="announce">
- <h2> Sois le premier à t'exprimer 😃 !</h2>
+      <div v-else>
+ <h2 class="announce" > Sois le premier à t'exprimer 😃 !</h2>
  </div>
   <button-add-post></button-add-post>
     </div>
@@ -62,6 +62,7 @@ h1 {
    display: flex;
    justify-content: center;
    align-content: center;
+   margin: 0 auto;
    font-size: 4rem;
    color: white;
  }
