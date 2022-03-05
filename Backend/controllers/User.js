@@ -68,12 +68,3 @@ exports.login = (req, res, next) => {
         }));
 }
 
-
-exports.logout = (req, res, next) => {
-
-     res.cookie('jwt', '', {
-         timeLimit: 1
-     });
-     res.redirect('/');
-
-}
