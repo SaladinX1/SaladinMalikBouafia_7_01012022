@@ -42,12 +42,6 @@ export default {
     authServices.checkLogin()
     postService.getPostById(this.id).then(post => {
       this.post = post.data
-
-      // const userId = localStorage.getItem('userId')
-      // if (post.data.userId !== userId) {
-      //   const buttonDisplay = document.querySelector('.button-display')
-      //   buttonDisplay.style.display = 'none'
-      // }
     }).catch(error => console.log(error))
   },
   methods: {
@@ -142,7 +136,7 @@ export default {
 
 img {
   width: 90%;
-  height: 350px;
+  height: 750px;
   border-radius: 25px;
   object-fit: cover;
   margin: 10% auto;
