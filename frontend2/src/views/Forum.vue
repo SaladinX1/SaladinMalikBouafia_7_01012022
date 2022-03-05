@@ -3,7 +3,7 @@
 <header-top>
 </header-top>
    <h1> Partages tes sensations . . . </h1>
-     <div v-if="posts" class="fil-posts">
+     <div v-if="posts.length > 0" class="fil-posts">
          <div class="displaying-post" @click="selectPost(post.id)" v-bind:key="post.id" v-for="post in posts">
              <img :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
@@ -77,7 +77,7 @@ h1 {
 
 .displaying-post {
 width: 40%;
-height: 500px;
+height: auto;
 margin: 5% auto;
 padding: 10px;
 border-radius: 20px;
@@ -88,7 +88,6 @@ cursor: pointer;
 
 img {
     width:100%;
-    height: 90%;
     margin: 0;
     object-fit: cover;
 }
@@ -99,8 +98,35 @@ img {
     padding: 10px 5px;
     color: white;
     font-weight: 600;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     text-align: center;
+}
+
+@media (max-width: 1600px) {
+
+.fil-posts {
+  margin: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+ }
+
+ .displaying-post {
+width: 80%;
+height: auto;
+margin: 5% auto;
+padding: 10px;
+border-radius: 20px;
+border: 3px solid rgb(255, 81, 0);
+margin-bottom: 10px;
+cursor: pointer;
+}
+
+img {
+    width:100%;
+    margin: 0;
+    object-fit: cover;
+}
+
 }
 
 </style>
