@@ -18,8 +18,7 @@
 
 <script>
 
-import getCommentsServices from '../services/getComments'
-import deleteCommentServices from '../services/deleteComment'
+import CommentServices from '../services/Comment'
 import buttonAddComment from '../components/button-add-comment.vue'
 
 export default {
@@ -34,7 +33,7 @@ export default {
   mounted () {
     this.userId = localStorage.getItem('userId')
     console.log(this.userId)
-    getCommentsServices.comments(this.id).then(
+    CommentServices.comments(this.id).then(
       comments => {
         console.log('comment : ', comments.data)
         this.comments = comments.data
@@ -44,7 +43,7 @@ export default {
   methods: {
     deleteComment () {
       if (window.confirm('Voulez-vous vraiment supprimer votre commentaire ?')) {
-        deleteCommentServices.deleteComment(this.id).then(res => {
+        CommentServices.deleteComment(this.id).then(res => {
           console.log('message comment detruit :', res)
           location.reload()
         })

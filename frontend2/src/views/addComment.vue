@@ -14,7 +14,7 @@
 <script>
 
 import authServices from '../services/auth'
-import postCommentServices from '../services/postComment'
+import CommentServices from '../services/Comment'
 
 export default {
   name: 'addPost',
@@ -30,7 +30,7 @@ export default {
     sendComment () {
       const userId = localStorage.getItem('userId')
       const comment = { message: this.comment, userId }
-      postCommentServices.addComment(comment, this.id).then(comment => {
+      CommentServices.addComment(comment, this.id).then(comment => {
         console.log('commentaire unique : ', comment)
         alert('Commentaire posté, bravo 😃 !')
         this.$router.push({ path: '/post/' + this.id })
