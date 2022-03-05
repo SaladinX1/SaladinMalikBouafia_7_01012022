@@ -6,16 +6,16 @@ const auth = require('../middlewares/auth');
 
 //routes pour le CRUD des posts
 
-router.get('/', postCtrl.getAllPosts);
-router.get('/:id', postCtrl.getOnePost);
-router.post('/' ,auth,multer, postCtrl.createPost);
+router.get('/', auth,postCtrl.getAllPosts);
+router.get('/:id',auth, postCtrl.getOnePost);
+router.post('/' ,auth, multer, postCtrl.createPost);
 router.put('/:id',auth, multer, postCtrl.updatePost);
 router.delete('/:id',auth, postCtrl.deletePost);
-router.post('/:id/like-unlike-post', postCtrl.likeUnlikePost);
+router.post('/:id/like-unlike-post', postCtrl.likeDislikePost);
 
 //routes pour les commentaires
 
-router.get('/:id/comments', commentCtrl.getComments);
-router.post('/:id/comments', commentCtrl.createComment);
+router.get('/:id/comments',auth, commentCtrl.getComments);
+router.post('/:id/comments',auth, commentCtrl.createComment);
 
 module.exports = router;
