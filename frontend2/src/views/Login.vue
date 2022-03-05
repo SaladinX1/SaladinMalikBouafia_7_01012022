@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import loginService from '../services/login'
+import authService from '../services/auth'
 
 export default {
   name: 'Login',
@@ -35,11 +35,15 @@ export default {
   },
   methods: {
     connexion () {
-      loginService
+      authService
         .login(this.email, this.password)
         .then((res) => {
+          console.log(res)
           const tokenUser = res.data.token
-          document.cookie = `token=${tokenUser}; expires=${new Date(2022, 1, 15).toUTCString()}`
+          const userId = res.data.userId
+          localStorage.setItem('userId', userId)
+          document.cookie = `token=${tokenUser}; expires=${new Date(2022, 2, 3).toUTCString()}`
+          localStorage.setItem('token', tokenUser)
           sessionStorage.setItem('token', tokenUser)
           this.$router.push({ path: '/forum' })
         })
@@ -62,6 +66,11 @@ export default {
   text-decoration: none;
   position: absolute;
   top: 0px;
+  cursor: pointer;
+}
+
+.register-link:hover {
+color: white;
 }
 
 .form {

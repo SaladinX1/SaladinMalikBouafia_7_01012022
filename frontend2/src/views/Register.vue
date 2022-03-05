@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import registerService from '../services/register'
+import authService from '../services/auth'
 
 export default {
   name: 'Register',
@@ -44,8 +44,8 @@ export default {
         pseudo: this.pseudo,
         password: this.password
       }
-      registerService
-        .registery(user)
+      authService
+        .register(user)
         .then((res) => {
           console.log(res)
           alert('Vous êtes maintenant inscrit ! Bravo 😃 !')
