@@ -13,6 +13,7 @@
 
 <script>
 
+import authServices from '../services/auth'
 import postCommentServices from '../services/postComment'
 
 export default {
@@ -23,11 +24,7 @@ export default {
     }
   },
   mounted () {
-    const hasToken = localStorage.getItem('token')
-    const hasUserId = localStorage.getItem('userId')
-    if (!hasToken && !hasUserId) {
-      window.location.href = '/'
-    }
+    authServices.checkLogin()
   },
   methods: {
     sendComment () {

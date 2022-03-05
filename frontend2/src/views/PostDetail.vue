@@ -22,6 +22,7 @@
 
 <script>
 
+import authServices from '../services/auth'
 import postService from '../services/post'
 import likeUnlikeService from '../services/likeDislike'
 import putPostTemplate from '../components/putPostTemplate.vue'
@@ -38,11 +39,7 @@ export default {
     }
   },
   mounted () {
-    const hasToken = localStorage.getItem('token')
-    const hasUserId = localStorage.getItem('userId')
-    if (!hasToken && !hasUserId) {
-      window.location.href = '/'
-    }
+    authServices.checkLogin()
     postService.getPostById(this.id).then(post => {
       this.post = post.data
 

@@ -15,9 +15,19 @@ const login = (email, password) =>
   axios.post('http://localhost:3000/auth/login', {
     email: email,
     password: password
-  })
+  }
+  )
+
+const checkLogin = () => {
+  const hasToken = localStorage.getItem('token')
+  const hasUserId = localStorage.getItem('userId')
+  if (!hasToken && !hasUserId) {
+    window.location.href = '/'
+  }
+}
 
 export default {
   register,
-  login
+  login,
+  checkLogin
 }
