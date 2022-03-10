@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../Database/db.config');
-
+const User = require('./User')
 
 const Post = sequelize.define('Post', {
 
@@ -19,12 +19,10 @@ const Post = sequelize.define('Post', {
         type: Sequelize.STRING,
         defaultValue: true,
         allowNull: false
-    },
-    comments_id: {
-        type: Sequelize.STRING,
-        defaultValue: true,
-        allowNull: false
-     }
+    }
 })
+
+Post.belongsTo(User);
+User.hasMany(Post);
 
 module.exports = Post;
