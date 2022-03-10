@@ -6,6 +6,8 @@ const userErrors = require('../utils/errors.utils');
 
 router.post('/register', userCtrl.register);
 router.post('/login', userCtrl.login);
+router.delete('/delete_user', userCtrl.destroyUser);
+router.put('/put_user', userCtrl.putUser);
 
 
 
