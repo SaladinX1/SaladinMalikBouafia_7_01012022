@@ -20,8 +20,7 @@ const login = (email, password) =>
 
 const checkLogin = () => {
   const hasToken = localStorage.getItem('token')
-  const hasUserId = localStorage.getItem('userId')
-  if (!hasToken && !hasUserId) {
+  if (!hasToken) {
     window.location.href = '/'
   }
 }
