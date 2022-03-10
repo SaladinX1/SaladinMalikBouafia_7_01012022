@@ -4,9 +4,11 @@
         <form method="form">
             <div class="display-form-data">
               <label for="email">Email :</label>
+              <p id="emailErrorMsg"></p>
         <input type="text" name="email" v-model="email" >
               <label for="pseudo">Pseudo :</label>
         <input type="text" name="pseudo" v-model="pseudo" >
+        <p id="pseudoErrorMsg"></p>
               <label for="old-password"> Ancien mot de passe :</label>
         <input type="text" name="old-password" v-model="old_password" required >
               <label for="new-password">Nouveau mot de passe :</label>
