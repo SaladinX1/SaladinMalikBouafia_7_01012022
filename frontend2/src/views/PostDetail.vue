@@ -59,10 +59,9 @@ export default {
       }
     },
     likeDislikeSend () {
-      const userId = localStorage.getItem('userId')
       // const like = document.querySelector('.like').value
       // const dislike = document.querySelector('.dislike').value
-      likeUnlikeService.likeUnlike(userId).then(res => {
+      likeUnlikeService.likeUnlike().then(res => {
         console.log('likeUnlike message:', res)
         const like = document.querySelector('like')
         like.setAttribute('style', 'background-color : green')
