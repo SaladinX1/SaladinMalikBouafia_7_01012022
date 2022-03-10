@@ -9,6 +9,7 @@
       <div>
         <label for="email">E-mail</label>
         <input v-model="email" type="email" id="email" class="form-control" />
+        <p id="emailErrorMsg"></p>
       </div>
       <div>  <label for="password">Mot de passe</label>
         <input
@@ -35,6 +36,19 @@ export default {
     return { email: '', password: '', errorMessage: '' }
   },
   methods: {
+    mounted () {
+      const email = document.querySelector('#email')
+      email.setAttribute('pattern', '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].+$')
+      document.querySelector('#email').addEventListener('change', (e) => {
+        const email = e.target.value
+        if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].+$/.test(email) === false) {
+          document.querySelector('#emailErrorMsg').textContent = 'Veuillez inscrire une adresse éléctronique seulement avec un @ et des caractères alphanumériques et/ou spéciaux ( - , _ , .)'
+          const error = document.querySelector('#email')
+          error.classList.add('border')
+          error.style.border = ' 1px solid red'
+        }
+      })
+    },
     connexion () {
       authService
         .login(this.email, this.password)

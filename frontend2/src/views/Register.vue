@@ -1,31 +1,33 @@
 <template>
-  <div class="register-view">
+  <div class='register-view'>
 <header>
-    <router-link class="login-link" to="/">Login</router-link>
+    <router-link class='login-link' to='/'>Connexion</router-link>
     </header>
-    <form class="form">
+    <form class='form'>
       <h1>Inscription</h1>
 
       <div>
-        <label for="email">E-mail</label>
-        <input v-model="email" type="email" id="email" class="form-control" />
+        <label for='email'>E-mail</label>
+        <input v-model='email' type='email' id='email' class='form-control' />
+        <p id='emailErrorMsg'></p>
       </div>
 
       <div>
-        <label for="pseudo">Pseudo</label>
-        <input v-model="pseudo" type="text" id="pseudo" class="form-control" />
+        <label for='pseudo'>Pseudo</label>
+        <input v-model='pseudo' type='text' id='pseudo' class='form-control' />
+        <p id='pseudoErrorMsg'></p>
       </div>
 
       <div>
-        <label for="password">Mot de passe</label>
+        <label for='password'>Mot de passe</label>
         <input
-          v-model="password"
-          type="password"
-          id="password"
-          class="form-control"
+          v-model='password'
+          type='password'
+          id='password'
+          class='form-control'
         />
       </div>
-      <button @click="register()" class="btn btn-primary">Envoyer</button>
+      <button @click='register()' class='btn btn-primary'>Envoyer</button>
     </form>
   </div>
 </template>
@@ -37,6 +39,30 @@ export default {
   name: 'Register',
   data () {
     return { email: '', pseudo: '', password: '' }
+  },
+  mounted () {
+    const pseudo = document.querySelector('#pseudo')
+    pseudo.setAttribute('pattern', '^[a-zA-Z]+[^0-9]')
+    document.querySelector('#pseudo').addEventListener('change', (e) => {
+      const pseudo = e.target.value
+      if (/^[a-zA-Z]+[^0-9]/.test(pseudo) === false) {
+        document.querySelector('#pseudoErrorMsg').textContent = 'Veuillez sélectionnez un pseudo seulement par des lettres minuscules ou majuscules et/ou des chiffres'
+        const error = document.querySelector('#pseudo')
+        error.classList.add('border')
+        error.style.border = ' 1px solid red'
+      }
+    })
+    const email = document.querySelector('#email')
+    email.setAttribute('pattern', '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].+$')
+    document.querySelector('#email').addEventListener('change', (e) => {
+      const email = e.target.value
+      if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].+$/.test(email) === false) {
+        document.querySelector('#emailErrorMsg').textContent = 'Veuillez inscrire une adresse éléctronique seulement avec un @ et des caractères alphanumériques et/ou spéciaux ( - , _ , .)'
+        const error = document.querySelector('#email')
+        error.classList.add('border')
+        error.style.border = ' 1px solid red'
+      }
+    })
   },
   methods: {
     register () {
