@@ -35,8 +35,7 @@ export default {
       const data = new FormData()
       data.append('message', this.message)
       data.append('file', this.picture)
-      const userId = localStorage.getItem('userId')
-      addPostService.addPost(data, userId).then(post => {
+      addPostService.addPost(data).then(post => {
         console.log(post)
         alert('Post envoyé, bravo ! 😃')
         this.$router.push({ path: '/forum' })

@@ -28,8 +28,7 @@ export default {
   },
   methods: {
     sendComment () {
-      const userId = localStorage.getItem('userId')
-      const comment = { message: this.comment, userId }
+      const comment = { message: this.comment }
       CommentServices.addComment(comment, this.id).then(comment => {
         console.log('commentaire unique : ', comment)
         alert('Commentaire posté, bravo 😃 !')
