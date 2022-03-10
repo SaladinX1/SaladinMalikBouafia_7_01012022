@@ -1,18 +1,27 @@
 # projet groupomania
 
-## Prérequis d'instalation
+## Prérequis d'installation
 ```
-Installer le framework vue.js avec la commande npm install -g @vue/cli 
+Installer  @vue/cli 
 
 Installer le Systême de gestion de base de données mySql
+
+installer la dernière version du runtime node js 
+
+installer la dernière version du gestionnaire de paquets npm
 
 ```
 
 ### Démarrage du projet 
 ```
- Se placer dans le répertoire **/frontend2** puis lancer la commande **npm run serve**
 
- Ensuite se placer dans le répertoire **/Backend** et lancer la commande **npm run watch**
+Cloner le repository avec la commande git clone
+
+ Puis lancer la commande : npm install 
+
+ Ensuite placez-vous dans le répertoire **/frontend2** puis lancer la commande **npm run serve**
+
+ Enfin placez-vous dans le répertoire **/Backend** et lancer la commande **npm run watch**
 
  ```
 
