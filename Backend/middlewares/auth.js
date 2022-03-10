@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const   User = require('../models/User')
 
 module.exports = (req, res, next) => {
 
@@ -6,19 +7,22 @@ module.exports = (req, res, next) => {
         const token = req.headers.authorization.split(' ')[1];
         const VerifyToken = jwt.verify(token, 'SECRET_TOKEN');
         const userId = VerifyToken.userId;
-        if (req.body.userId && req.body.userId != userId) {
-            return res.status(403).json({
-                message: 'requête non autorisée'
-            })
-        } else {
-            next();
-        }
+        User.findOne({ where: {
+            id: userId
+        }}).then( user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: 'requête non autorisée'
+                })
+            } else {
+                req.user = user
+                next();
+            }
+        })  
     } catch {
-        return res.status(401).json({
+        return res.status(400).json({
             error: new Error('la requête est invalide ! ')
         });
 
     }
-
-
 }
