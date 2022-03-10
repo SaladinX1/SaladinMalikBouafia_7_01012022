@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="register-view">
+<header>
     <router-link class="login-link" to="/">Login</router-link>
-
+    </header>
     <form class="form">
       <h1>Inscription</h1>
 
@@ -64,6 +65,10 @@ export default {
 ::after {
   padding: 0;
   margin: 0;
+}
+
+.register-view {
+  margin: 12% auto;
 }
 
 .login-link {

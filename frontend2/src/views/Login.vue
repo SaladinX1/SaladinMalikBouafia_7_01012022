@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="login-view">
+<header>
     <router-link class="register-link"   to="/register">Register</router-link>
-
+    </header>
     <form class="form">
       <h1>Connexion</h1>
 
@@ -40,8 +41,6 @@ export default {
         .then((res) => {
           console.log(res)
           const tokenUser = res.data.token
-          const userId = res.data.userId
-          localStorage.setItem('userId', userId)
           document.cookie = `token=${tokenUser}; expires=${new Date(2022, 2, 3).toUTCString()}`
           localStorage.setItem('token', tokenUser)
           sessionStorage.setItem('token', tokenUser)
@@ -56,6 +55,11 @@ export default {
 </script>
 
 <style>
+
+.login-view {
+  margin: 12% auto;
+}
+
 .errorMessage {
  color: red;
  text-align: right;
