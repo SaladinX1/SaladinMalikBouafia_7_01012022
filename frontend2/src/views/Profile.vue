@@ -23,6 +23,7 @@
 
 // import userService from '../services/user'
 
+import authServices from '../services/auth'
 import putUserTemplate from '../components/putUserTemplate.vue'
 
 export default {
@@ -33,6 +34,9 @@ export default {
       profile: {},
       revealUser: false
     }
+  },
+  mounted () {
+    authServices.checkLogin()
   },
   methods: {
     backToForum () {
