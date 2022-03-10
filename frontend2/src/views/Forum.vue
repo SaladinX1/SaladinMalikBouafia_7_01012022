@@ -54,7 +54,7 @@ h1 {
   font-style:italic;
   font-weight: lighter;
   font-size: 3rem;
-  color: orangered;
+  color: white;
   text-align: center;
 }
 
@@ -82,7 +82,7 @@ height: auto;
 margin: 5% auto;
 padding: 10px;
 border-radius: 20px;
-border: 2px solid rgb(255, 81, 0);
+border: 2px solid rgb(255, 255, 255);
 margin-bottom: 10px;
 cursor: pointer;
 }
@@ -117,7 +117,7 @@ height: auto;
 margin: 5% auto;
 padding: 10px;
 border-radius: 20px;
-border: 3px solid rgb(255, 81, 0);
+border: 3px solid rgb(255, 255, 255);
 margin-bottom: 10px;
 cursor: pointer;
 }
