@@ -27,8 +27,9 @@ export default {
   },
   methods: {
     putUser () {
-      userService.putUser(this.old_password, this.new_password).then(pw => {
-        console.log('this change:', pw)
+      const putPassword = { old_password: this.old_password, new_password: this.new_password }
+      userService.putUser(putPassword).then(pw => {
+        console.log('this pw change:', pw)
         alert('Mot de passe modifié ! bravo ! 😃')
         this.$router.push({ path: '/profile' })
       }
@@ -53,8 +54,9 @@ export default {
 
 .display-form {
     display: flex;
-    margin: 10% auto;
+    margin: 5% auto;
     line-height: 50px;
+    width: 80%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -78,7 +80,8 @@ export default {
   border-radius: 10px;
   background-color: rgb(80, 230, 80);
   font-size: 1.5rem;
-  width: 15%;
+  width: auto;
+  padding: 5px 30px;
 }
 
 </style>

@@ -51,6 +51,7 @@ export default {
 
 h1 {
   margin: 9% auto 0;
+  padding: 50px 0 10px;
   font-style:italic;
   font-weight: lighter;
   font-size: 3rem;

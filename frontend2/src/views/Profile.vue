@@ -80,7 +80,7 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 11% auto;
+  margin: 15% auto;
   height: auto;
 }
 
@@ -101,6 +101,7 @@ html {
   padding: 20px;
   font-size: 1.7rem;
   font-weight: 500;
+  word-break: break-word;
 }
 
 .profile-user-info {
@@ -110,21 +111,24 @@ html {
 .buttons-setting {
   display: flex;
   justify-content: center;
+  width: 80%;
   margin: 30px;
 }
 
 .delete-user {
   padding: 8px 15px;
   margin: 0 10px;
-  width: 50%;
+  width: auto;
   background-color: rgb(255, 108, 108);
   color: white;
+word-break: break-word;
 }
 
 .put-user {
   padding: 8px 15px;
   margin: 0 10px;
-  width: 50%;
+  width: auto;
+  word-break: break-word;
 }
 
 button {
@@ -141,6 +145,16 @@ button {
 }
 
 @media  (max-width: 785px) {
+
+.profile-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30% auto;
+  height: auto;
+}
+
   .buttons-setting {
     display: flex;
     flex-direction: column;
