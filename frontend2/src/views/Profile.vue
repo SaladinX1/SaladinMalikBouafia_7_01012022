@@ -16,7 +16,7 @@
                 <button class="put-user" @click="togglePutUser()">Modifier mes identifiants</button>
             </div>
             </div>
-             <put-user-template :revealUser='revealUser' ></put-user-template>
+             <put-user-template :revealUser='revealUser' :togglePutUser="togglePutUser" ></put-user-template>
     </div>
 
 </template>
@@ -33,7 +33,8 @@ export default {
   data () {
     return {
       profile: {},
-      revealUser: false
+      revealUser: false,
+      user: ''
     }
   },
   mounted () {
@@ -52,9 +53,9 @@ export default {
     },
     deleteUser () {
       if (window.confirm('Voulez-vous vraiment supprimer votre compte ?')) {
-        userService.deleteUser(this.id).then(res => {
+        userService.deleteUser().then(res => {
           console.log(res)
-          this.$router.push({ path: '/' })
+          this.$router.push({ path: '/register' })
         }).catch(error => console.log(error))
       }
     }
@@ -100,7 +101,6 @@ html {
   padding: 20px;
   font-size: 1.7rem;
   font-weight: 500;
-  width: 70%;
 }
 
 .profile-user-info {
@@ -118,6 +118,7 @@ html {
   margin: 0 10px;
   width: 50%;
   background-color: rgb(255, 108, 108);
+  color: white;
 }
 
 .put-user {
