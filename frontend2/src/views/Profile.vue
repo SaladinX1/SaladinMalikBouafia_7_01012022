@@ -5,12 +5,14 @@
     </header>
             <div class="profile">
                 <div class="info-user">
-                  <p>Mon Profil:</p>
-                  <p class="profile-user-email"> e-mail:</p>
-                  <p class="profile-user-name"> Pseudo: </p>
+                  <p>Mon Profil :</p>
+                  <div class="profile-user-info" v-if="user" >
+                    <p> e-mail : {{ user.email }} </p>
+                    <p> Pseudo : {{ user.pseudo }} </p>
+                  </div>
                 </div>
             <div class="buttons-setting">
-                <button class="delete-user">Suprimer le compte</button>
+                <button class="delete-user" @click="deleteUser()">Suprimer le compte</button>
                 <button class="put-user" @click="togglePutUser()">Modifier mes identifiants</button>
             </div>
             </div>
@@ -21,8 +23,7 @@
 
 <script>
 
-// import userService from '../services/user'
-
+import userService from '../services/user'
 import authServices from '../services/auth'
 import putUserTemplate from '../components/putUserTemplate.vue'
 
@@ -37,6 +38,10 @@ export default {
   },
   mounted () {
     authServices.checkLogin()
+    userService.getUser().then(user => {
+      console.log('message get profile:', user)
+      this.user = user.data
+    })
   },
   methods: {
     backToForum () {
@@ -46,14 +51,13 @@ export default {
       this.revealUser = !this.revealUser
     },
     deleteUser () {
-      // if (window.confirm('Voulez-vous vraiment supprimer votre compte ?')) {
-      //   userService.deleteUser().then(deleted => {
-      //     console.log(deleted)
-      //     this.$router.push({ path: '/forum' })
-      //   }).catch
-      // }
-    },
-    props: ['id']
+      if (window.confirm('Voulez-vous vraiment supprimer votre compte ?')) {
+        userService.deleteUser(this.id).then(res => {
+          console.log(res)
+          this.$router.push({ path: '/' })
+        }).catch(error => console.log(error))
+      }
+    }
   }
 }
 </script>
@@ -96,7 +100,11 @@ html {
   padding: 20px;
   font-size: 1.7rem;
   font-weight: 500;
-  width: 50%;
+  width: 70%;
+}
+
+.profile-user-info {
+  font-style: italic;
 }
 
 .buttons-setting {
