@@ -76,6 +76,7 @@ export default {
         .then((res) => {
           console.log(res)
           alert('Vous êtes maintenant inscrit ! Bravo 😃 !')
+          this.$router.push({ path: '/' })
         })
         .catch((err) => {
           alert(' une erreur est survenue :( : ' + err)
