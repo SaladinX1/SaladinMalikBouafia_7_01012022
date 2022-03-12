@@ -9,13 +9,13 @@
       <div>
         <label for='email'>E-mail</label>
         <input v-model='email' type='email' id='email' class='form-control' />
-        <p id='emailErrorMsg'></p>
+        <p id='emailErrorMsg'> {{ emailErrorMsg }} </p>
       </div>
 
       <div>
         <label for='pseudo'>Pseudo</label>
         <input v-model='pseudo' type='text' id='pseudo' class='form-control' />
-        <p id='pseudoErrorMsg'></p>
+        <p id='pseudoErrorMsg'> {{ pseudoErrorMsg }} </p>
       </div>
 
       <div>
@@ -38,7 +38,7 @@ import authService from '../services/auth'
 export default {
   name: 'Register',
   data () {
-    return { email: '', pseudo: '', password: '' }
+    return { email: '', pseudo: '', password: '', emailErrorMsg: '', pseudoErrorMsg: '' }
   },
   mounted () {
     const pseudo = document.querySelector('#pseudo')
@@ -50,6 +50,8 @@ export default {
         const error = document.querySelector('#pseudo')
         error.classList.add('border')
         error.style.border = ' 1px solid red'
+      } else {
+        document.querySelector('#pseudoErrorMsg').textContent = ''
       }
     })
     const email = document.querySelector('#email')
@@ -61,6 +63,8 @@ export default {
         const error = document.querySelector('#email')
         error.classList.add('border')
         error.style.border = ' 1px solid red'
+      } else {
+        document.querySelector('#emailErrorMsg').textContent = ''
       }
     })
   },
