@@ -6,12 +6,12 @@ const auth = require('../middlewares/auth');
 
 //routes pour le CRUD des posts
 
-router.get('/', auth,postCtrl.getAllPosts);
+router.get('/',auth,postCtrl.getAllPosts);
 router.get('/:id',auth, postCtrl.getOnePost);
 router.post('/' ,auth, multer, postCtrl.createPost);
 router.put('/:id',auth, multer, postCtrl.updatePost);
 router.delete('/:id',auth, postCtrl.deletePost);
-router.post('/:id/like-unlike-post', postCtrl.likeDislikePost);
+router.post('/:id/like-unlike-post',auth, postCtrl.likeDislikePost);
 
 //routes pour les commentaires
 
