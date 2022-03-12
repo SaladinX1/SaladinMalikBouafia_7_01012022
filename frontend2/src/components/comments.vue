@@ -2,9 +2,13 @@
 <div class="comment-area">
     <h2>Commentaires :</h2>
     <div class="comment-display" v-bind:key='comment.id' v-for="comment in comments ">
-      <div class="comment-pseudo">
+      <div class="comment-pseudo" v-if="comment.User">
         {{ comment.User.pseudo }}
       </div>
+      <div class="comment-pseudo  comment-pseudo-delete " v-else>
+        Utlisateur supprimé
+      </div>
+
       <div class="comment-message">
          {{ comment.message }}
       </div>
@@ -32,7 +36,7 @@ export default {
   },
   mounted () {
     this.userId = localStorage.getItem('userId')
-    console.log(this.userId)
+    console.log('this changed : ', this.userId)
     CommentServices.comments(this.id).then(
       comments => {
         console.log('comment : ', comments.data)
@@ -77,6 +81,11 @@ h2 {
     font-size: 2rem;
     color: rgb(0, 0, 0);
 }
+
+.comment-pseudo-delete {
+  color: rgb(82, 69, 69);
+}
+
 .comment-message {
     color: rgb(0, 0, 0);
     font-size: 1.5rem;
