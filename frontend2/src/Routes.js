@@ -7,6 +7,7 @@ import Forum from './views/Forum'
 import PostDetail from './views/PostDetail'
 import addPost from './views/addPost'
 import addComment from './views/addComment'
+import newPassword from './views/NewPasswordView'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,10 @@ const routes = [{
 {
   path: '/addpost',
   component: addPost
+},
+{
+  path: '/new_password',
+  component: newPassword
 },
 {
   path: '/post/:id/addcomment',
