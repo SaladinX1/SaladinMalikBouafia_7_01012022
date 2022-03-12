@@ -1,6 +1,5 @@
-const Like = require('../models/Like');
+ //const Like = require('../models/Like');
 const Post = require('../models/Post');
-//const Like = require('../models/like')
 //const fs = require('fs');
 
 
@@ -17,6 +16,7 @@ module.exports.getAllPosts = (req, res) => {
 
 module.exports.createPost = (req, res) => {
     const postItem = new Post({    
+        UserId: req.user.id,
         message: req.body.message,
         picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     });
@@ -38,11 +38,11 @@ module.exports.getOnePost = (req, res) => {
 
 module.exports.updatePost = (req, res) => {
     Post.update({
-            message: req.body.message
+            message: req.body.message,
+            picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         }, {
-            where: {
-                id: req.params.id
-            }
+            where: 
+            { id: req.user.id }
         })
         .then(() => res.status(200).json({
             message: 'Post modifié !'
@@ -121,8 +121,8 @@ module.exports.likeDislikePost = (req, res) => {
                             }))
                     }
                     if (post.usersDisliked.includes(userId)) {
-                        Post.updateOne({
-                                id: sauceId
+                        Like.updateOne({
+                                id: postId
                             }, {
                                 $pull: {
                                     usersDisliked: userId
@@ -145,7 +145,7 @@ module.exports.likeDislikePost = (req, res) => {
             break;
 
         case -1:
-            Post.updateOne({
+            Like.updateOne({
                     id: postId
                 }, {
                     $push: {

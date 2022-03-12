@@ -1,11 +1,11 @@
 <template>
-    <div class="put-div" v-if='reveal'>
+    <div class="put-section" v-if='reveal'>
         <div class="put-form">
              <h1>Modifie ton post ici 😁 !</h1>
-        <form method="Post">
+        <form action="javascript:void(0);">
             <div class="display-form-data">
-        <input type="file" class="file">
-        <textarea class="area" name="post" id="post" cols="20" rows="10" ></textarea>
+        <input type="file" class="file" v-on:change="updatePicture" >
+        <textarea v-model="message" class="area" name="message" id="message" cols="20" rows="10" ></textarea>
         </div>
         <div class="put-button-displaying">
         <button class="put-button-validation" @click="putPost()">Valider</button>
@@ -24,15 +24,27 @@ export default {
   name: 'putPostTemplate',
   data () {
     return {
+      message: '',
+      picture: ''
     }
   },
   methods: {
     putPost () {
-      postService.putPost(this.id).then(res => {
+      const data = new FormData()
+      data.append('message', this.message)
+      data.append('file', this.picture)
+      postService.putPost(this.id, data).then(res => {
         console.log('message put :', res)
-        alert('Post modifié !')
-        this.$router.push({ path: '/forum' })
+        alert('Post modifié 😃 !')
+        location.reload()
       }).catch(error => console.log(error))
+    },
+    updatePicture (event) {
+      console.log(event)
+      this.picture = event.target.files[0]
+    },
+    backToForum () {
+      this.$router.push({ path: '/forum' })
     }
   },
   props: ['reveal', 'togglePut', 'id']
@@ -41,7 +53,7 @@ export default {
 
 <style>
 
-.put-div {
+.put-section {
     display: flex;
     justify-content: center;
     margin: 5% auto;
