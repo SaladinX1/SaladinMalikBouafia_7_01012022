@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const userModel = require('../models/User');
-const timeLimit = 3 * 24 * 60 * 60 * 1000;
+const User = require('../models/User');
+
 
 exports.register = async (req, res, next) => {
     const {
@@ -12,7 +12,7 @@ exports.register = async (req, res, next) => {
     try {
         const salt = await bcrypt.genSalt(2);
         const password = await bcrypt.hash(req.body.password, salt);
-        const userItem = new userModel({
+        const userItem = new User ({
             pseudo,
             email,
             password
@@ -30,15 +30,14 @@ exports.register = async (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-    userModel.findOne({
+    User.findOne({
         where: {     
            email: req.body.email
         }
     }
         )  
         .then(user => {
-            if (!user) {  
-               
+            if (!user) {    
                 return res.status(401).json({
                    message : 'Utilisateur non trouvé !'
                 });
@@ -51,7 +50,6 @@ exports.login = (req, res, next) => {
                         });
                     }
                     res.status(200).json({
-                        userId: user.id,
                         token: jwt.sign({
                             userId: user.id
                         }, 'SECRET_TOKEN', {
@@ -68,3 +66,45 @@ exports.login = (req, res, next) => {
         }));
 }
 
+
+exports.getOneUser = (req, res) => {
+    User.findOne({
+            where: {     
+               id: req.user.id
+            }
+        }).then(post => res.status(200).json(post))
+        .catch(error => res.status(500).json(error))
+}
+
+exports.destroyUser = (req,res, next) => {
+    User.findOne({
+        id: req.body.id
+    })
+    .then(user => {
+            user.destroy()
+            .then(() => res.status(200).json({
+                message: 'Utilisateur supprimé !'
+            }))
+    })
+    .catch(error => res.status(400).json({
+        message: 'Mauvaise requête !'
+    }));
+}
+
+
+exports.putUser = (req,res, next) => {
+         
+        User.update({
+            email: req.body.email,
+        pseudo: req.body.pseudo
+        }, {where: 
+            { id: req.user.id }
+        })
+        .then(() => res.status(200).json({
+            message: 'Utilisateur modifié !'
+        }))
+        .catch(error => res.status(400).json({
+            message: 'Mauvaise requête putUser !'
+        }))
+        
+}
