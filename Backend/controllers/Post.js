@@ -42,7 +42,7 @@ module.exports.updatePost = (req, res) => {
             picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         }, {
             where: 
-            { id: req.user.id }
+            { id: req.params.id }
         })
         .then(() => res.status(200).json({
             message: 'Post modifié !'
