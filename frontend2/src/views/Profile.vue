@@ -16,7 +16,7 @@
                 <button class="put-user" @click="togglePutUser()">Modifier mes identifiants</button>
             </div>
             </div>
-             <put-user-template :revealUser='revealUser' :togglePutUser="togglePutUser" ></put-user-template>
+             <put-user-template :revealUser='revealUser' :togglePutUser="togglePutUser" :user="user"></put-user-template>
     </div>
 
 </template>
@@ -24,7 +24,6 @@
 <script>
 
 import userService from '../services/user'
-import authServices from '../services/auth'
 import putUserTemplate from '../components/putUserTemplate.vue'
 
 export default {
@@ -38,8 +37,8 @@ export default {
     }
   },
   mounted () {
-    authServices.checkLogin()
     userService.getUser().then(user => {
+      console.log('msg user:', user)
       console.log('message get profile:', user)
       this.user = user.data
     })
@@ -52,7 +51,7 @@ export default {
       this.revealUser = !this.revealUser
     },
     deleteUser () {
-      if (window.confirm('Voulez-vous vraiment supprimer votre compte ?')) {
+      if (window.confirm('ATTENTION !!! \n La suppression de votre compte est irréversible, \n Voulez-vous vraiment supprimer votre compte ?')) {
         userService.deleteUser().then(res => {
           console.log(res)
           this.$router.push({ path: '/register' })
