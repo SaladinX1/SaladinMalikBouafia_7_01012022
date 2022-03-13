@@ -8,6 +8,7 @@ import PostDetail from './views/PostDetail'
 import addPost from './views/addPost'
 import addComment from './views/addComment'
 import newPassword from './views/NewPasswordView'
+import authService from './services/auth'
 
 Vue.use(VueRouter)
 
@@ -17,7 +18,8 @@ const routes = [{
 },
 {
   path: '/profile',
-  component: Profile
+  component: Profile,
+  meta: { requiresAuth: true }
 },
 {
   path: '/',
@@ -25,16 +27,19 @@ const routes = [{
 },
 {
   path: '/forum',
-  component: Forum
+  component: Forum,
+  meta: { requiresAuth: true }
 },
 {
   path: '/post/:id',
   component: PostDetail,
-  props: true
+  props: true,
+  meta: { requiresAuth: true }
 },
 {
   path: '/addpost',
-  component: addPost
+  component: addPost,
+  meta: { requiresAuth: true }
 },
 {
   path: '/new_password',
@@ -43,12 +48,23 @@ const routes = [{
 {
   path: '/post/:id/addcomment',
   component: addComment,
-  props: true
+  props: true,
+  meta: { requiresAuth: true }
 }
 ]
 const router = new VueRouter({
   mode: 'history',
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (authService.isAuthenticated()) {
+      next()
+      return
+    }
+    next('/')
+  } else next()
 })
 
 export default router

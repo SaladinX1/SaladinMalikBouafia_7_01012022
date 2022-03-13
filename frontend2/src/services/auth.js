@@ -18,15 +18,14 @@ const login = (email, password) =>
   }
   )
 
-const checkLogin = () => {
-  const hasToken = localStorage.getItem('token')
-  if (!hasToken) {
-    window.location.href = '/'
-  }
+const isAuthenticated = () => {
+  const token = localStorage.getItem('token')
+  if (token) return true
+  else return false
 }
 
 export default {
   register,
   login,
-  checkLogin
+  isAuthenticated
 }
