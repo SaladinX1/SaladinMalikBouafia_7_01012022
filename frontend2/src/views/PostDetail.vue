@@ -6,10 +6,6 @@
   <div v-if="post" class="post" >
              <img :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
-             <div class="like-unlike" >
-               <p class="like" @click="likeUnlike()" value="0" >👍 {{ likeValue }}</p>
-               <p class="dislike" @click="likeUnlikeSend()" value="0">👎 {{ likeValue }}</p>
-               </div>
              <div class="button-display">
                <button @click="togglePut()" class="put">Modifier</button>
                <button @click="deletePost()" class="delete">Supprimer</button>
@@ -22,9 +18,7 @@
 
 <script>
 
-import authServices from '../services/auth'
 import postService from '../services/post'
-import likeUnlikeService from '../services/likeDislike'
 import putPostTemplate from '../components/putPostTemplate.vue'
 import comments from '../components/comments.vue'
 
@@ -34,12 +28,10 @@ export default {
   data () {
     return {
       post: {},
-      reveal: false,
-      likeValue: 0
+      reveal: false
     }
   },
   mounted () {
-    authServices.checkLogin()
     postService.getPostById(this.id).then(post => {
       this.post = post.data
     }).catch(error => console.log(error))
@@ -57,17 +49,6 @@ export default {
           this.$router.push({ path: '/forum' })
         })
       }
-    },
-    likeDislikeSend () {
-      // const like = document.querySelector('.like').value
-      // const dislike = document.querySelector('.dislike').value
-      likeUnlikeService.likeUnlike().then(res => {
-        console.log('likeUnlike message:', res)
-        const like = document.querySelector('like')
-        like.setAttribute('style', 'background-color : green')
-      }
-      ).catch(error => console.log(error)
-      )
     }
   },
   props: ['id']
@@ -113,24 +94,6 @@ export default {
  border-radius: 25px;
  background-color: rgb(215, 221, 219);
  border: 2px solid rgb(156, 255, 64);
-}
-
-.like-unlike {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-}
-
-.like {
-  font-size: 2rem;
-  margin: 0 20px;
-  cursor: pointer
-}
-
-.dislike {
-  font-size: 2rem;
-  margin: 0 20px;
-  cursor: pointer;
 }
 
 img {
