@@ -11,7 +11,6 @@
                <p id="pseudoErrorMsg"></p>
               <p class="pseudoMsg"> {{ pseudoMsg }} </p>
         <input class="input-pseudo-mail" type="text" name="pseudo"  v-model="pseudo">
-              <button class="passwordButton" @click="newPasswordView()">Changer le mot de passe</button>
         </div>
         <div class="put-button-displaying">
         <button class="put-button-validation" @click="putUser()">Valider</button>
@@ -72,9 +71,6 @@ export default {
     },
     updatePicture (event) {
       this.picture = event.target.files[0]
-    },
-    newPasswordView () {
-      this.$router.push({ path: '/new_password' })
     },
     backToForum () {
       this.$router.push({ path: '/forum' })

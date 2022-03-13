@@ -42,10 +42,6 @@ const routes = [{
   meta: { requiresAuth: true }
 },
 {
-  path: '/new_password',
-  component: newPassword
-},
-{
   path: '/post/:id/addcomment',
   component: addComment,
   props: true,
