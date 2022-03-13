@@ -6,7 +6,7 @@ module.exports.createComment = (req, res) => {
  const postId = req.params.id
     const commentItem = new commentModel({
 
-        UserId: req.body.userId,
+        UserId: req.user.id,
         PostId: postId,
         message: req.body.message
     });
@@ -20,7 +20,7 @@ module.exports.createComment = (req, res) => {
 module.exports.getComments = (req, res) => {
     commentModel.findAll( {
         where: {
-        PostId: req.params.id },
+        PostId: req.params.id},
         include: User
     })
 
