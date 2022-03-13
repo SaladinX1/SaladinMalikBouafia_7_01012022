@@ -13,7 +13,6 @@
 
 <script>
 
-import authServices from '../services/auth'
 import CommentServices from '../services/Comment'
 
 export default {
@@ -22,9 +21,6 @@ export default {
     return {
       comment: ''
     }
-  },
-  mounted () {
-    authServices.checkLogin()
   },
   methods: {
     sendComment () {

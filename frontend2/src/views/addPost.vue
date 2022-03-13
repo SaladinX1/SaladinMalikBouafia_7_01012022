@@ -16,7 +16,6 @@
 
 <script>
 
-import authServices from '../services/auth'
 import addPostService from '../services/post'
 
 export default {
@@ -26,9 +25,6 @@ export default {
       message: '',
       picture: ''
     }
-  },
-  mounted () {
-    authServices.checkLogin()
   },
   methods: {
     sendPost () {

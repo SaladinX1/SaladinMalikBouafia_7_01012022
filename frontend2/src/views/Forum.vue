@@ -18,7 +18,6 @@
 
 <script>
 
-import authServices from '../services/auth'
 import postService from '../services/post'
 import headerTop from '../components/header-top.vue'
 import buttonAddPost from '../components/button-add-post.vue'
@@ -32,7 +31,6 @@ export default {
     }
   },
   mounted () {
-    authServices.checkLogin()
     postService.getAllPost().then(posts => {
       console.log('message :', posts.data)
       this.posts = posts.data
