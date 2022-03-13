@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../Database/db.config');
 
-
 const User = sequelize.define('User', {
     // Model attributes are defined here
     id: {
@@ -12,7 +11,8 @@ const User = sequelize.define('User', {
     },
     pseudo: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
+        unique: true
     },
     email: {
 
@@ -30,7 +30,8 @@ const User = sequelize.define('User', {
         type: Sequelize.STRING,
         allowNull: true
     }
-    // Other model options go here
 });
+
+
 
 module.exports = User;
