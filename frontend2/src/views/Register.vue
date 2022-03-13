@@ -3,19 +3,21 @@
 <header>
     <router-link class='login-link' to='/'>Connexion</router-link>
     </header>
-    <form class='form'>
+    <form class='form' @submit="register">
       <h1>Inscription</h1>
 
       <div>
         <label for='email'>E-mail</label>
-        <input v-model='email' type='email' id='email' class='form-control' />
+        <input v-model='email' type='email' id='email' class='form-control' required />
         <p id='emailErrorMsg'> {{ emailErrorMsg }} </p>
+        <p class='sameEmail'> {{ sameEmail }} </p>
       </div>
 
       <div>
         <label for='pseudo'>Pseudo</label>
-        <input v-model='pseudo' type='text' id='pseudo' class='form-control' />
+        <input v-model='pseudo' type='text' id='pseudo' pattern="[a-zA-Z0-9]{4,12}" title="4 à 8 lettres en minuscules" class='form-control' required />
         <p id='pseudoErrorMsg'> {{ pseudoErrorMsg }} </p>
+        <p class='samePseudo'> {{ samePseudo }} </p>
       </div>
 
       <div>
@@ -25,9 +27,12 @@
           type='password'
           id='password'
           class='form-control'
+           pattern=".{8,16}"
+           title="8 à 16 caractères sont requis"
+        required
         />
       </div>
-      <button @click='register()' class='btn btn-primary'>Envoyer</button>
+      <input  type="submit" value="Envoyer" class='btn btn-primary'>
     </form>
   </div>
 </template>
@@ -38,35 +43,7 @@ import authService from '../services/auth'
 export default {
   name: 'Register',
   data () {
-    return { email: '', pseudo: '', password: '', emailErrorMsg: '', pseudoErrorMsg: '' }
-  },
-  mounted () {
-    const pseudo = document.querySelector('#pseudo')
-    pseudo.setAttribute('pattern', '^[a-zA-Z]+[^0-9]')
-    document.querySelector('#pseudo').addEventListener('change', (e) => {
-      const pseudo = e.target.value
-      if (/^[a-zA-Z]+[^0-9]/.test(pseudo) === false) {
-        document.querySelector('#pseudoErrorMsg').textContent = 'Veuillez sélectionnez un pseudo seulement par des lettres minuscules ou majuscules et/ou des chiffres'
-        const error = document.querySelector('#pseudo')
-        error.classList.add('border')
-        error.style.border = ' 1px solid red'
-      } else {
-        document.querySelector('#pseudoErrorMsg').textContent = ''
-      }
-    })
-    const email = document.querySelector('#email')
-    email.setAttribute('pattern', '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].+$')
-    document.querySelector('#email').addEventListener('change', (e) => {
-      const email = e.target.value
-      if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].+$/.test(email) === false) {
-        document.querySelector('#emailErrorMsg').textContent = 'Veuillez inscrire une adresse éléctronique seulement avec un @ et des caractères alphanumériques et/ou spéciaux ( - , _ , .)'
-        const error = document.querySelector('#email')
-        error.classList.add('border')
-        error.style.border = ' 1px solid red'
-      } else {
-        document.querySelector('#emailErrorMsg').textContent = ''
-      }
-    })
+    return { email: '', pseudo: '', password: '', emailErrorMsg: '', pseudoErrorMsg: '', samePseudo: '', sameEmail: '' }
   },
   methods: {
     register () {
@@ -83,7 +60,8 @@ export default {
           this.$router.push({ path: '/' })
         })
         .catch((err) => {
-          alert(' une erreur est survenue :( : ' + err)
+          this.sameEmail = err.response.data.emailMessage
+          this.samePseudo = err.response.data.pseudoMessage
         })
     }
   }
@@ -121,6 +99,11 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.samePseudo , .sameEmail {
+  font-size: 1.2rem;
+  color: red;
 }
 
 .btn {
