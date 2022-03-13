@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { Op } = require('@sequelize/core');
+
 const User = require('../models/User');
 
 
@@ -10,6 +12,20 @@ exports.register = async (req, res, next) => {
     } = req.body
 
     try {
+        User.findOne({
+            where: {
+                [Op.or]: [
+                  { email: req.body.email },
+                  { pseudo: req.body.pseudo }
+                ]
+              }
+        }).then(user => {
+            if(user && user.email === req.body.email) {
+                res.status(400).json({ emailMessage: 'Cet email éxiste déjà, veuillez en choisir un autre, merci' }) 
+            } else if (user && user.pseudo === req.body.pseudo ){
+                res.status(400).json({ pseudoMessage: ' Ce pseudo éxiste déjà, veuillez en choisir un autre, merci' }) 
+        }
+    })
         const salt = await bcrypt.genSalt(2);
         const password = await bcrypt.hash(req.body.password, salt);
         const userItem = new User ({
@@ -19,7 +35,7 @@ exports.register = async (req, res, next) => {
         });
         userItem.save()
             .then(res.status(201).json({
-                message: 'User created ! congratulations and welcome 😃 !'
+                message: 'Utilisateur crée ! félicitations et bienvenue 😃 !'
             }))
             .catch(error => console.log(error));
     } catch (err) {
@@ -107,4 +123,4 @@ exports.putUser = (req,res, next) => {
             message: 'Mauvaise requête putUser !'
         }))
         
-}
+    }
