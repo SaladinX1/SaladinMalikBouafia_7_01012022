@@ -7,7 +7,6 @@ import Forum from './views/Forum'
 import PostDetail from './views/PostDetail'
 import addPost from './views/addPost'
 import addComment from './views/addComment'
-import newPassword from './views/NewPasswordView'
 import authService from './services/auth'
 
 Vue.use(VueRouter)
