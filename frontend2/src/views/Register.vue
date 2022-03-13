@@ -15,7 +15,7 @@
 
       <div>
         <label for='pseudo'>Pseudo</label>
-        <input v-model='pseudo' type='text' id='pseudo' pattern="[a-zA-Z0-9]{4,12}" title="4 à 8 lettres en minuscules" class='form-control' required />
+        <input v-model='pseudo' type='text' id='pseudo' pattern="[a-zA-Z0-9]{4,12}" title="Merci de sélectionner 4 à 12 caractères" class='form-control' required />
         <p id='pseudoErrorMsg'> {{ pseudoErrorMsg }} </p>
         <p class='samePseudo'> {{ samePseudo }} </p>
       </div>
