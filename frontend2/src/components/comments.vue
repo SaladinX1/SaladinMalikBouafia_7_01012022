@@ -13,7 +13,7 @@
          {{ comment.message }}
       </div>
       <div v-if="userId == comment.UserId"  class="delete-comment-button">
-      <div @click="deleteComment()" >Supprimer</div>
+      <div @click="deleteComment(comment.id)" >Supprimer</div>
       </div>
     </div>
     <button-add-comment :id="id"></button-add-comment>
@@ -38,17 +38,19 @@ export default {
     this.userId = localStorage.getItem('userId')
     CommentServices.comments(this.id).then(
       comments => {
-        console.log('comment : ', comments.data)
         this.comments = comments.data
       }
     ).catch(error => console.log(error))
   },
   methods: {
-    deleteComment () {
+    deleteComment (id) {
       if (window.confirm('Voulez-vous vraiment supprimer votre commentaire ?')) {
-        CommentServices.deleteComment(this.id).then(res => {
-          console.log('message comment detruit :', res)
-          location.reload()
+        CommentServices.deleteComment(id).then(res => {
+          CommentServices.comments(this.id).then(
+            comments => {
+              this.comments = comments.data
+            }
+          ).catch(error => console.log(error))
         })
       }
     }
