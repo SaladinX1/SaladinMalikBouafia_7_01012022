@@ -11,6 +11,7 @@
         <input v-model="email" type="email" id="email" class="form-control"/>
         <p id="emailErrorMsg"></p>
       </div>
+
       <div>  <label for="password">Mot de passe</label>
         <input
           v-model="password"
@@ -20,8 +21,6 @@
           pattern=".{8,16}"
         />
       </div>
-
-      <p class="errorMessage"> {{ errorMessage }}</p>
 
       <button @click.prevent="connexion()" class="btn btn-primary">Envoyer</button>
     </form>
@@ -34,7 +33,7 @@ import authService from '../services/auth'
 export default {
   name: 'Login',
   data () {
-    return { email: '', password: '', errorMessage: '' }
+    return { email: '', password: '' }
   },
   methods: {
     connexion () {
@@ -48,7 +47,7 @@ export default {
           this.$router.push({ path: '/forum' })
         })
         .catch((err) => {
-          this.errorMessage = err.response.data.message
+          console.log(err)
         })
     }
   }
