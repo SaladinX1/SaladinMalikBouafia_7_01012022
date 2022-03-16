@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Op } = require('@sequelize/core');
-
 const User = require('../models/User');
+
 
 
 exports.register = async (req, res, next) => {
@@ -28,12 +28,12 @@ exports.register = async (req, res, next) => {
     })
         const salt = await bcrypt.genSalt(2);
         const password = await bcrypt.hash(req.body.password, salt);
-        const userItem = new User ({
+        const user = new User ({
             pseudo,
             email,
             password
         });
-        userItem.save()
+        user.save()
             .then(res.status(201).json({
                 message: 'Utilisateur crée ! félicitations et bienvenue 😃 !'
             }))
@@ -68,9 +68,10 @@ exports.login = (req, res, next) => {
                     res.status(200).json({
                         token: jwt.sign({
                             userId: user.id
-                        }, 'SECRET_TOKEN', {
-                            expiresIn: '24h'
-                        })
+                        }, 'SECRET_TOKEN_REFRESH', {
+                            expiresIn: '1h'
+                        }), 
+                        userId: user.id 
                     })
                 })
                 .catch(error => res.status(500).json({
@@ -106,7 +107,6 @@ exports.destroyUser = (req,res, next) => {
         message: 'Mauvaise requête !'
     }));
 }
-
 
 exports.putUser = (req,res, next) => {
          

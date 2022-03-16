@@ -12,7 +12,7 @@
       <div class="comment-message">
          {{ comment.message }}
       </div>
-      <div v-if="userId == comment.UserId" class="delete-comment-button">
+      <div v-if="userId == comment.UserId"  class="delete-comment-button">
       <div @click="deleteComment()" >Supprimer</div>
       </div>
     </div>
@@ -36,7 +36,6 @@ export default {
   },
   mounted () {
     this.userId = localStorage.getItem('userId')
-    console.log('this changed : ', this.userId)
     CommentServices.comments(this.id).then(
       comments => {
         console.log('comment : ', comments.data)

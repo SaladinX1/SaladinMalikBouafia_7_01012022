@@ -3,10 +3,10 @@
   <header>
     <div class="arrow-left" @click="backToForum()" > ⇦ </div>
     </header>
-  <div v-if="post" class="post" >
+  <div v-if="post" class="post">
              <img :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
-             <div class="button-display">
+             <div v-if="userId == post.UserId" class="button-display">
                <button @click="togglePut()" class="put">Modifier</button>
                <button @click="deletePost()" class="delete">Supprimer</button>
              </div>
@@ -28,10 +28,12 @@ export default {
   data () {
     return {
       post: {},
-      reveal: false
+      reveal: false,
+      userId: ''
     }
   },
   mounted () {
+    this.userId = localStorage.getItem('userId')
     postService.getPostById(this.id).then(post => {
       this.post = post.data
     }).catch(error => console.log(error))

@@ -43,9 +43,9 @@ export default {
         .then((res) => {
           console.log(res)
           const tokenUser = res.data.token
-          document.cookie = `token=${tokenUser}; expires=${new Date(2022, 2, 3).toUTCString()}`
+          const userId = res.data.userId
           localStorage.setItem('token', tokenUser)
-          sessionStorage.setItem('token', tokenUser)
+          localStorage.setItem('userId', userId)
           this.$router.push({ path: '/forum' })
         })
         .catch((err) => {
