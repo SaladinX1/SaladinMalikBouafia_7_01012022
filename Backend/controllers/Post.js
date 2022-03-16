@@ -5,7 +5,7 @@ const Post = require('../models/Post');
 
 
 module.exports.getAllPosts = (req, res) => {
-    Post.findAll()
+    Post.findAll({order: [["createdAt", "DESC"]]})
         .then(products => res.status(200).json(products))
         .catch(error => res.status(400).json({
             message: error

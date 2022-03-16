@@ -2,6 +2,7 @@
 const config = require('config.json');
 const mysql = require('mysql2/promise');
 const { Sequelize } = require('sequelize');
+const User = require('../models/User')
 
 module.exports = db = {};
 
@@ -28,6 +29,20 @@ async function initialize() {
     // init models and add them to the exported db object
 
     db.User = require('../models/User')(sequelize);
+
+    User
+  .create({ username: 'dbTraveler', job: 'visitor' })
+  .then(function() {
+    User
+      .findOrCreate({where: {username: 'dbTraveler'}, defaults: {job: 'visitor'}})
+      .spread(function(user, created) {
+        console.log(user.get({
+          plain: true
+        }))
+        console.log(created)
+
+      })
+  })
 
     // sync all models with database
 
