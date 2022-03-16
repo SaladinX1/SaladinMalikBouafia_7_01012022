@@ -1,13 +1,14 @@
 const app = require('./app');
-const cookieParser = require('cookie-parser');
 const http = require('http');
 const server = http.createServer(app);
-const sequelize = require('./Database/db.config');
+const sequelize = require('./Database/db.script');
 
 
 
 
-server.listen(process.env.PORT || 3000);
+server.listen( 3000 , () => {
+    console.log('Server is listening on port : 3000' )
+});
 
 app.get('/health', function (req, res) {
 
@@ -22,11 +23,3 @@ app.use((req, res, next) => {
     next();
 });
 
-sequelize
-    .sync()
-    .then(result => {
-        console.log(result);
-    })
-    .catch(err => {
-        console.log(err);
-    })
