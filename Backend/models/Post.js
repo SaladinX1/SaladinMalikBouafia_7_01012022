@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('../Database/db.config');
+const sequelize = require('../Database/db.script');
 const User = require('./User')
 
 const Post = sequelize.define('Post', {
