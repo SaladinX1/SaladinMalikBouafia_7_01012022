@@ -40,7 +40,6 @@ export default {
       }).catch(error => console.log(error))
     },
     updatePicture (event) {
-      console.log(event)
       this.picture = event.target.files[0]
     },
     backToForum () {

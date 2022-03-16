@@ -64,7 +64,6 @@ export default {
         this.$router.push({ path: '/forum' })
       }
       ).catch(err => {
-        console.log(err)
         this.pseudoMsg = err.response.data.pseudoMsg
         this.emailMsg = err.response.data.emailMsg
       })

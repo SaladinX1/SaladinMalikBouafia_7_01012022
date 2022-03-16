@@ -32,7 +32,6 @@ export default {
   },
   mounted () {
     postService.getAllPost().then(posts => {
-      console.log('message :', posts.data)
       this.posts = posts.data
     })
       .catch(error => console.log(error))

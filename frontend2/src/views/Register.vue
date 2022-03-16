@@ -55,7 +55,6 @@ export default {
       authService
         .register(user)
         .then((res) => {
-          console.log(res)
           alert('Vous êtes maintenant inscrit ! Bravo 😃 !')
           this.$router.push({ path: '/' })
         })

@@ -38,7 +38,6 @@ export default {
   },
   mounted () {
     userService.getUser().then(user => {
-      console.log('msg user:', user)
       console.log('message get profile:', user)
       this.user = user.data
     })
@@ -53,7 +52,6 @@ export default {
     deleteUser () {
       if (window.confirm('ATTENTION !!! \n La suppression de votre compte est irréversible, \n Voulez-vous vraiment supprimer votre compte ?')) {
         userService.deleteUser().then(res => {
-          console.log(res)
           this.$router.push({ path: '/register' })
         }).catch(error => console.log(error))
       }

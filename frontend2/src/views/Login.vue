@@ -41,7 +41,6 @@ export default {
       authService
         .login(this.email, this.password)
         .then((res) => {
-          console.log(res)
           const tokenUser = res.data.token
           const userId = res.data.userId
           localStorage.setItem('token', tokenUser)

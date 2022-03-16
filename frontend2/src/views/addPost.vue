@@ -32,7 +32,6 @@ export default {
       data.append('message', this.message)
       data.append('file', this.picture)
       addPostService.addPost(data).then(post => {
-        console.log(post)
         alert('Post envoyé, bravo ! 😃')
         this.$router.push({ path: '/forum' })
       }
