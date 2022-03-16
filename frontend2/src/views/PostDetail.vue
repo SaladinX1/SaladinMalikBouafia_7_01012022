@@ -110,6 +110,8 @@ img {
   text-align: center;
   font-size: 3rem;
   font-weight: 600;
+  padding: 10px 0;
+  margin: 20px 0 ;
 }
 
 </style>
