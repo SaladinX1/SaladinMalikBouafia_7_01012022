@@ -39,7 +39,6 @@ export default {
     putUser () {
       const putUser = { email: this.email, pseudo: this.pseudo }
       userService.putUser(putUser).then(put => {
-        console.log('this put changed:', put)
         alert('Pseudo et email modifié ! bravo ! 😃')
         this.$router.push({ path: '/forum' })
       }

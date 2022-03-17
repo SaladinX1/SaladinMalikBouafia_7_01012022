@@ -10,11 +10,6 @@ server.listen( 3000 , () => {
     console.log('Server is listening on port : 3000' )
 });
 
-app.get('/health', function (req, res) {
-
-    res.send('The api is working properly');
-});
-
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
