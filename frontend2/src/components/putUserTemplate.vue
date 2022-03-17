@@ -93,6 +93,7 @@ label {
 .input-pseudo-mail {
   font-size: 1.3rem;
   font-weight: 500;
+
 }
 
 .area-put {
@@ -114,7 +115,11 @@ justify-content: flex-start;
 .put-button-validation {
     margin: 10px;
     background-color : greenyellow;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
 }
 
 .canceled {
