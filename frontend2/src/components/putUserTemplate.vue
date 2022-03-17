@@ -1,19 +1,19 @@
 <template>
     <div class="put-div" v-if='revealUser == true'>
              <h1>Modifie ton compte ici :</h1>
-        <form method="form">
+        <form method="form"  @submit="putUser" >
             <div class="display-form-data">
               <label for="email">Email :</label>
               <p id="emailErrorMsg"></p>
               <p class="emailMsg"> {{ emailMsg }} </p>
-        <input class="input-pseudo-mail" type="text" name="email"  v-model="email">
+        <input class="input-pseudo-mail" type="text" name="email" required v-model="email">
               <label for="pseudo">Pseudo :</label>
                <p id="pseudoErrorMsg"></p>
               <p class="pseudoMsg"> {{ pseudoMsg }} </p>
-        <input class="input-pseudo-mail" type="text" name="pseudo" pattern=".{8,16}" title="8 à 16 caractères sont requis" v-model="pseudo">
+        <input class="input-pseudo-mail" type="text" name="pseudo" required pattern="[a-zA-Z0-9]{4,12}" title="Merci de sélectionner 4 à 12 caractères" v-model="pseudo">
         </div>
         <div class="put-button-displaying">
-        <button class="put-button-validation" @click="putUser()">Valider</button>
+        <input value="Envoyer" class="put-button-validation">
         <button class="canceled" @click='togglePutUser' >Annuler</button>
         </div>
         </form>
