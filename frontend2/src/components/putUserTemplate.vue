@@ -10,7 +10,7 @@
               <label for="pseudo">Pseudo :</label>
                <p id="pseudoErrorMsg"></p>
               <p class="pseudoMsg"> {{ pseudoMsg }} </p>
-        <input class="input-pseudo-mail" type="text" name="pseudo"  v-model="pseudo">
+        <input class="input-pseudo-mail" type="text" name="pseudo" pattern=".{8,16}" title="8 à 16 caractères sont requis" v-model="pseudo">
         </div>
         <div class="put-button-displaying">
         <button class="put-button-validation" @click="putUser()">Valider</button>
@@ -36,26 +36,6 @@ export default {
     this.email = this.user.email
   },
   methods: {
-    // checkImputForm () {
-    //   document.querySelector('#pseudo').addEventListener('change', (e) => {
-    //     const pseudo = e.target.value
-    //     if (/^[a-zA-Z]+[^0-9]/.test(pseudo) === false) {
-    //       document.querySelector('#pseudoErrorMsg').textContent = 'Veuillez sélectionnez un pseudo seulement par des lettres minuscules ou majuscules et/ou des chiffres'
-    //       const error = document.querySelector('#pseudo')
-    //       error.classList.add('border')
-    //       error.style.border = ' 1px solid red'
-    //     }
-    //   })
-    //   document.querySelector('#email').addEventListener('change', (e) => {
-    //     const email = e.target.value
-    //     if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].+$/.test(email) === false) {
-    //       document.querySelector('#emailErrorMsg').textContent = 'Veuillez inscrire une adresse éléctronique seulement avec un @ et des caractères alphanumériques et/ou spéciaux ( - , _ , .)'
-    //       const error = document.querySelector('#email')
-    //       error.classList.add('border')
-    //       error.style.border = ' 1px solid red'
-    //     }
-    //   })
-    // },
     putUser () {
       const putUser = { email: this.email, pseudo: this.pseudo }
       userService.putUser(putUser).then(put => {
