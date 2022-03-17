@@ -3,7 +3,7 @@
 <header>
     <router-link class='login-link' to='/'>Connexion</router-link>
     </header>
-    <form class='form' @submit="register">
+    <form class='form' @submit.prevent="register">
       <h1>Inscription</h1>
 
       <div>

@@ -12,21 +12,25 @@ exports.register = async (req, res, next) => {
     } = req.body
 
     try {
-        User.findOne({
+
+        let user = await User.findOne({ 
+      
             where: {
                 [Op.or]: [
                   { email: req.body.email },
                   { pseudo: req.body.pseudo }
                 ]
               }
-        }).then(user => {
-            if(user && user.email === req.body.email) {
-                res.status(400).json({ emailMessage: 'Cet email éxiste déjà, veuillez en choisir un autre, merci' }) 
-            } else if (user && user.pseudo === req.body.pseudo ){
-                res.status(400).json({ pseudoMessage: ' Ce pseudo éxiste déjà, veuillez en choisir un autre, merci' }) 
-        }
-    })
-        const salt = await bcrypt.genSalt(2);
+        })
+        if(user != null) {
+             if( user.email === req.body.email ) {
+              res.status(400).json({ emailMessage: 'Cet email éxiste déjà, veuillez en choisir un autre, merci' }) 
+              } else {
+               res.status(400).json({ pseudoMessage: ' Ce pseudo éxiste déjà, veuillez en choisir un autre, merci' }) 
+               }
+              } else {
+                  
+                  const salt = await bcrypt.genSalt(2);
         const password = await bcrypt.hash(req.body.password, salt);
         const user = new User ({
             pseudo,
@@ -38,6 +42,10 @@ exports.register = async (req, res, next) => {
                 message: 'Utilisateur crée ! félicitations et bienvenue 😃 !'
             }))
             .catch(error => console.log(error));
+
+               }
+
+    
     } catch (err) {
         res.status(400).send({
             err
