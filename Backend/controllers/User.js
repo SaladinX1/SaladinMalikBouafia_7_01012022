@@ -54,6 +54,7 @@ exports.register = async (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
+
     User.findOne({
         where: {     
            email: req.body.email
@@ -79,7 +80,7 @@ exports.login = (req, res, next) => {
                         }, 'SECRET_TOKEN_REFRESH', {
                             expiresIn: '1h'
                         }), 
-                        userId: user.id 
+                        userId: user.id            
                     })
                 })
                 .catch(error => res.status(500).json({

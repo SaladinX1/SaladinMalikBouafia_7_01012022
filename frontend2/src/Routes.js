@@ -8,6 +8,7 @@ import PostDetail from './views/PostDetail'
 import addPost from './views/addPost'
 import addComment from './views/addComment'
 import authService from './services/auth'
+import adminConnexion from './views/moderateurConnexion'
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,10 @@ const routes = [{
   component: addComment,
   props: true,
   meta: { requiresAuth: true }
+},
+{
+  path: '/moderateurconnexion',
+  component: adminConnexion
 }
 ]
 const router = new VueRouter({
