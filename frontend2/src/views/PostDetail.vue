@@ -10,6 +10,10 @@
                <button @click="togglePut()" class="put">Modifier</button>
                <button @click="deletePost()" class="delete">Supprimer</button>
              </div>
+             <div v-else-if="user.email === 'groupomaniaMaster@gmail.com'" class="button-display">
+                <button @click="togglePut()" class="put">Modifier</button>
+               <button @click="deletePost()" class="delete">Supprimer</button>
+             </div>
              <put-post-template v-bind:reveal='reveal' v-bind:togglePut='togglePut' :id="id" ></put-post-template>
          </div>
            <comments :id="id" ></comments>
@@ -18,6 +22,7 @@
 
 <script>
 
+import userService from '../services/user'
 import postService from '../services/post'
 import putPostTemplate from '../components/putPostTemplate.vue'
 import comments from '../components/comments.vue'
@@ -29,7 +34,8 @@ export default {
     return {
       post: {},
       reveal: false,
-      userId: ''
+      userId: '',
+      user: ''
     }
   },
   mounted () {
@@ -37,6 +43,10 @@ export default {
     postService.getPostById(this.id).then(post => {
       this.post = post.data
     }).catch(error => console.log(error))
+    userService.getUser().then(user => {
+      console.log('message get profile:', user.data)
+      this.user = user.data
+    })
   },
   methods: {
     backToForum () {

@@ -12,9 +12,12 @@
       <div class="comment-message">
          {{ comment.message }}
       </div>
-      <div v-if="userId == comment.UserId"  class="delete-comment-button">
+      <div v-if="userId == comment.UserId" class="delete-comment-button">
       <div @click="deleteComment(comment.id)" >Supprimer</div>
       </div>
+      <div v-else-if="user.email === 'groupomaniaMaster@gmail.com'" class="delete-comment-button">
+               <div @click="deleteComment(comment.id)" >Supprimer</div>
+             </div>
     </div>
     <button-add-comment :id="id"></button-add-comment>
 </div>
@@ -22,6 +25,7 @@
 
 <script>
 
+import userService from '../services/user'
 import CommentServices from '../services/Comment'
 import buttonAddComment from '../components/button-add-comment.vue'
 
@@ -31,7 +35,8 @@ export default {
   data () {
     return {
       comments: [],
-      userId: ''
+      userId: '',
+      user: ''
     }
   },
   mounted () {
@@ -41,6 +46,9 @@ export default {
         this.comments = comments.data
       }
     ).catch(error => console.log(error))
+    userService.getUser().then(user => {
+      this.user = user.data
+    })
   },
   methods: {
     deleteComment (id) {
