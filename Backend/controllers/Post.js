@@ -1,7 +1,5 @@
- //const Like = require('../models/Like');
-const Post = require('../models/Post');
-//const fs = require('fs');
 
+const Post = require('../models/Post');
 
 
 module.exports.getAllPosts = (req, res) => {
