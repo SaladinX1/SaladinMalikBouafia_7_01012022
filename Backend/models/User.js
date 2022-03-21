@@ -29,6 +29,11 @@ const User = sequelize.define('User', {
 
         type: Sequelize.STRING,
         allowNull: true
+    },
+    admin : {
+        type: Sequelize.DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: false
     }
 });
 

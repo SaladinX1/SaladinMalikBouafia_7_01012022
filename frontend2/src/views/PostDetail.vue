@@ -6,12 +6,8 @@
   <div v-if="post" class="post">
              <img :src="post.picture"/>
              <span class="message"> {{ post.message }}</span>
-             <div v-if="userId == post.UserId" class="button-display">
+             <div v-if="userId == post.UserId || user.admin == true"  class="button-display">
                <button @click="togglePut()" class="put">Modifier</button>
-               <button @click="deletePost()" class="delete">Supprimer</button>
-             </div>
-             <div v-else-if="user.email === 'groupomaniaMaster@gmail.com'" class="button-display">
-                <button @click="togglePut()" class="put">Modifier</button>
                <button @click="deletePost()" class="delete">Supprimer</button>
              </div>
              <put-post-template v-bind:reveal='reveal' v-bind:togglePut='togglePut' :id="id" ></put-post-template>

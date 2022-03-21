@@ -48,7 +48,7 @@ export default {
     logout () {
       localStorage.removeItem('token')
       localStorage.removeItem('userId')
-      sessionStorage.removeItem('token')
+      localStorage.removeItem('moderateur')
       this.$router.push({ path: '/' })
     }
   }
